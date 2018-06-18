@@ -14,6 +14,7 @@ kDS.sh
 kDS-LOCAL.sh
 
 data/*
+datasets/*
 !enron*
 !e00*
 !live-rec-test.py

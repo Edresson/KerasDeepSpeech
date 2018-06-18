@@ -8,6 +8,7 @@ KERAS Deep Speech - test script
 
 #####################################################
 
+
 import argparse
 import datetime
 import socket
@@ -35,6 +36,7 @@ def main(args):
 
 
     '''
+
 
     print("Getting data from arguments")
     test_dataprops, df_test = combine_all_wavs_and_trans_from_csvs(args.test_files, sortagrad=False)

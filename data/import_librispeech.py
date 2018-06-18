@@ -34,7 +34,7 @@ from tensorflow.python.platform import gfile
 
 def _download_and_preprocess_data(data_dir):
     # Conditionally download data to data_dir
-    print("Downloading Librivox data set (55GB) into {} if not already present...".format(data_dir))
+    '''print("Downloading Librivox data set (55GB) into {} if not already present...".format(data_dir))
     with progressbar.ProgressBar(max_value=7, widget=progressbar.AdaptiveETA) as bar:
         TRAIN_CLEAN_100_URL = "http://www.openslr.org/resources/12/train-clean-100.tar.gz"
         TRAIN_CLEAN_360_URL = "http://www.openslr.org/resources/12/train-clean-360.tar.gz"
@@ -87,7 +87,7 @@ def _download_and_preprocess_data(data_dir):
         _maybe_extract(data_dir, os.path.join(LIBRIVOX_DIR, "test-clean"), test_clean)
         bar.update(5)
         _maybe_extract(data_dir, os.path.join(LIBRIVOX_DIR, "test-other"), test_other)
-        bar.update(6)
+        bar.update(6)'''
 
     # Convert FLAC data to wav, from:
     #  data_dir/LibriSpeech/split/1/2/1-2-3.flac
@@ -101,6 +101,8 @@ def _download_and_preprocess_data(data_dir):
     #  data_dir/LibriSpeech/split-wav/1-2-1.txt
     #  data_dir/LibriSpeech/split-wav/1-2-2.txt
     #  ...
+    LIBRIVOX_DIR = "LibriSpeech"
+    work_dir = os.path.join(data_dir, LIBRIVOX_DIR)
     print("Converting FLAC to WAV and splitting transcriptions...")
     with progressbar.ProgressBar(max_value=7,  widget=progressbar.AdaptiveETA) as bar:
         train_100 = _convert_audio_and_split_sentences(work_dir, "train-clean-100", "train-clean-100-wav")
@@ -122,6 +124,7 @@ def _download_and_preprocess_data(data_dir):
 
     # Write sets to disk as CSV files
     train_100.to_csv(os.path.join(data_dir, "librivox-train-clean-100.csv"), index=False)
+
     train_360.to_csv(os.path.join(data_dir, "librivox-train-clean-360.csv"), index=False)
     train_500.to_csv(os.path.join(data_dir, "librivox-train-other-500.csv"), index=False)
 
@@ -176,7 +179,8 @@ def _convert_audio_and_split_sentences(extracted_dir, data_set, dest_dir):
                                             .decode("ascii", "ignore")
 
                     transcript = transcript.lower().strip()
-
+			
+                    print(seqid + ".flac")
                     # Convert corresponding FLAC to a WAV
                     flac_file = os.path.join(root, seqid + ".flac")
                     wav_file = os.path.join(target_dir, seqid + ".wav")
