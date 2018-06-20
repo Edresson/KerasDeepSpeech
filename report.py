@@ -191,4 +191,4 @@ def earlyStopCheck(array):
     if all(i <= last for i in rest):
         return True
     else:
-return False
+	return False
