@@ -45,7 +45,7 @@ class ReportCallback(callbacks.Callback):
         results = []
         count = 0
         self.validdata.cur_index = 0  # reset index
-ssssssssssssssssssssssssssssss
+
         if self.valid_test_devide: #check not zero
             allvalid = (len(self.validdata.wavpath) // self.validdata.batch_size) // self.valid_test_devide
 
@@ -55,16 +55,16 @@ ssssssssssssssssssssssssssssss
 
             word_batch = next(self.validdata_next_val)[0]
             decoded_res = decode_batch(self.test_func,
-                                       wordssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss_batch['the_input'][0:self.batch_size],
+                                       word_batch['the_input'][0:self.batch_size],
                                        self.batch_size)
-	    #print('decoder_res',decoded_res)
+
             for j in range(0, self.batch_size):
                 # print(c,j)
                 count += 1
                 decode_sent = decoded_res[j]
                 corrected = correction(decode_sent)
                 label = word_batch['source_str'][j]
-                #print('label123:',label,'\n','corrected',corrected)
+                #print(label)
 
                 if verbose:
                     cor_wer = wer(label, corrected)
@@ -75,7 +75,7 @@ ssssssssssssssssssssssssssssss
                                                                                      str(j), decode_sent,
                                                                                      str(j), corrected))
 
-                    print("Sample Decoded WER:{}, Corrected LM WER:{}".format(dec_wer, cor_wer))
+                    # print("Sample Decoded WER:{}, Corrected LM WER:{}".format(dec_wer, cor_wer))
 
                 originals.append(label)
                 results.append(corrected)
@@ -83,7 +83,6 @@ ssssssssssssssssssssssssssssss
         print("########################################################")
         print("Completed Validation Test: WER & LER results")
         rates, mean = wers(originals, results)
-	#print(originals, results)
         # print("WER rates     :", rates)
         lrates, lmean, norm_lrates, norm_lmean = lers(originals, results)
         # print("LER rates     :", lrates)
@@ -173,7 +172,6 @@ def decode_batch(test_func, word_batch, batch_size):
 
         try:
             outStr = int_to_text_sequence(merge)
-            #print('outstr',outStr)		
 
         except Exception as e:
             print("Unrecognised character on decode error:", e)
@@ -193,4 +191,4 @@ def earlyStopCheck(array):
     if all(i <= last for i in rest):
         return True
     else:
-        return False
+	return False
