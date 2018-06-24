@@ -501,17 +501,14 @@ def qrnn_deepspeech(input_dim=39, rnn_size=512, num_classes=29, input_std_noise=
     if input_dropout:
         o = Dropout(dropout)(o)
     for i, _ in enumerate(range(num_layers)):
-        QRNN(128, window_size=3, dropout=0.2, 
-               kernel_regularizer=l2(1e-4), bias_regularizer=l2(1e-4), 
-               kernel_constraint=maxnorm(10), bias_constraint=maxnorm(10))
-        new_o = Bidirectional(QRNN(num_hiddens,
+        new_o = QRNN(num_hiddens,
                                    return_sequences=True,
                                    kernel_regularizer=l2(weight_decay),
                                    bias_regularizer=l2(weight_decay),
                                    kernel_constraint=maxnorm(10), 
                                    bias_constraint=maxnorm(10),
                                    dropout=dropout,
-                                   activation=activation))(o)
+                                   activation=activation)(o)#Bidirectional(
         if residual is not None:
             o = merge([new_o,  o], mode=residual)
         else:
