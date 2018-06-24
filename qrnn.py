@@ -4,9 +4,10 @@ import numpy as np
 
 from keras import backend as K
 from keras import activations, initializers, regularizers, constraints
-from keras.layers import Layer, InputSpec
+from keras.layers import Layer, InputSpec,Bidirectional
 
 from keras.utils.conv_utils import conv_output_length
+from keras.utils.generic_utils import has_arg
 
 import theano
 import theano.tensor as T
@@ -314,3 +315,53 @@ class QRNN(Layer):
                   'input_length': self.input_length}
         base_config = super(QRNN, self).get_config()
         return dict(list(base_config.items()) + list(config.items()))
+
+class QRNN_Bidirectional(Bidirectional):
+    """Bidirectional for QRNNs.
+
+    # Arguments
+        layer: `QRNN` instance.
+        merge_mode: Mode by which outputs of the
+            forward and backward QRNNs will be combined.
+            One of {'sum', 'mul', 'concat', 'ave', None}.
+            If None, the outputs will not be combined,
+            they will be returned as a list.
+
+    # Raises
+        ValueError: In case of invalid `merge_mode` argument.
+
+    """
+
+    def __init__(self, layer, merge_mode='concat', weights=None, **kwargs):
+        super(QRNN_Bidirectional, self).__init__(layer,**kwargs)
+
+    def call(self, inputs, training=None, mask=None):
+        kwargs = {}
+        if has_arg(self.layer.call, 'training'):
+            kwargs['training'] = training
+        if has_arg(self.layer.call, 'mask'):
+            kwargs['mask'] = mask
+
+        y = self.forward_layer.call(inputs, **kwargs)
+        y_rev = self.backward_layer.call(inputs, **kwargs)
+        if self.return_sequences:
+            y_rev = K.reverse(y_rev, 1)
+        if self.merge_mode == 'concat':
+            output = K.concatenate([y, y_rev])
+        elif self.merge_mode == 'sum':
+            output = y + y_rev
+        elif self.merge_mode == 'ave':
+            output = (y + y_rev) / 2
+        elif self.merge_mode == 'mul':
+            output = y * y_rev
+        elif self.merge_mode is None:
+            output = [y, y_rev]
+
+        # Properly set learning phase
+        if 0 < self.layer.dropout < 1:
+            if self.merge_mode is None:
+                for out in output:
+                    out._uses_learning_phase = True
+            else:
+                output._uses_learning_phase = True
+        return output
