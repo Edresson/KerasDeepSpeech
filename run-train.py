@@ -25,6 +25,7 @@ from generator import BatchGenerator
 from model import *
 from report import ReportCallback
 from utils import load_model_checkpoint, save_model, MemoryCallback
+import time
 #####################################################
 
 
@@ -173,7 +174,7 @@ def main(args):
     report_cb = ReportCallback(report, validdata, model, args.name, save=True)
 
     cb_list.append(report_cb)
-
+    tempo =time.time()
     model.fit_generator(generator=traindata.next_batch(),
                         steps_per_epoch=args.train_steps,
                         epochs=args.epochs,
@@ -187,7 +188,7 @@ def main(args):
                         workers=1,
                         pickle_safe=False
                         )
-
+    print("Tempo de treino em segundos:",time.time()-tempo)
     # K.clear_session()
 
     ## These are the most important metrics
