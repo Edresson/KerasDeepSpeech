@@ -25,7 +25,6 @@ from generator import BatchGenerator
 from model import *
 from report import ReportCallback
 from utils import load_model_checkpoint, save_model, MemoryCallback
-
 #####################################################
 
 
