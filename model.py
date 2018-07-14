@@ -570,17 +570,16 @@ def qrnn_deepspeech(input_dim=39, rnn_size=512, num_classes=29, input_std_noise=
                                    activation=activation))(o)
     
     o = QRNN_Bidirectional(QRNN(num_hiddens,
-                                   return_sequences=True,stride =1,
+                                   return_sequences=True,
                                    activation=activation))(o)
     
     o = QRNN_Bidirectional(QRNN(num_hiddens,
                                    return_sequences=True,
-                                   stride =1,
+                                   
                                    activation=activation))(o)
     
     o = QRNN_Bidirectional(QRNN(num_hiddens,
                                    return_sequences=True,
-                                   stride =2,
                                    activation=activation))(o)
     
         
