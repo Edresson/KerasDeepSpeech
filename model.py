@@ -480,7 +480,7 @@ def brsmv1(input_dim=39, rnn_size=512, num_classes=29, input_std_noise=.0, resid
     model = Model(inputs=[input_data, labels, input_length, label_length], outputs=[loss_out])
     return model
 
-def qrnn_deepspeech(input_dim=39, rnn_size=512, num_classes=29, input_std_noise=.0, residual=None, num_hiddens=256, num_layers=5,
+def qrnn_deepspeech1(input_dim=39, rnn_size=512, num_classes=29, input_std_noise=.0, residual=None, num_hiddens=256, num_layers=5,
            dropout=0.0 , input_dropout=False, weight_decay=1e-4, activation='tanh'):
     """ Implementation of brsmv1 model
 
@@ -543,7 +543,51 @@ def qrnn_deepspeech(input_dim=39, rnn_size=512, num_classes=29, input_std_noise=
     return model
 
     
-def qrnn_deepspeech1(input_dim=39, rnn_size=512, num_classes=29, input_std_noise=.0, residual=None, num_hiddens=256, num_layers=5,
+def qrnn_deepspeech(input_dim=39, rnn_size=512, num_classes=29, input_std_noise=.0, residual=None, num_hiddens=256, num_layers=5,
+           dropout=0.2 , input_dropout=False, weight_decay=1e-4, activation='tanh'):
+    """ Implementation of brsmv1 model
+
+    Reference:
+        http://www.pee.ufrj.br/index.php/pt/producao-academica/dissertacoes-de-mestrado/2017/2016033174-end-to-end-speech-recognition-applied-to-brazilian-portuguese-using-deep-learning/file
+    """
+
+    K.set_learning_phase(1)
+    input_data = Input(name='the_input', shape=(None, input_dim))
+    o=input_data
+    if input_std_noise is not None:
+        o = GaussianNoise(input_std_noise)(o)
+    if residual is not None:
+        o = TimeDistributed(Dense(num_hiddens*2,
+                                  kernel_regularizer=l2(weight_decay)))(o)
+    if input_dropout:
+        o = Dropout(dropout)(o)
+    for strides in [1, 1, 2]:
+        new_o = QRNN_Bidirectional(QRNN(128*2**(strides),
+                                   return_sequences=True,stride = strides,
+                                   dropout=dropout))(o)
+        if residual is not None:
+            o = merge([new_o,  o], mode=residual)
+        else:
+            o = new_o
+    o = TimeDistributed(Dense(num_classes,activation='softmax'))(o)
+    # Input of labels and other CTC requirements
+    labels = Input(name='the_labels', shape=[None,], dtype='int32')
+    input_length = Input(name='input_length', shape=[1], dtype='int32')
+    label_length = Input(name='label_length', shape=[1], dtype='int32')
+
+    # Keras doesn't currently support loss funcs with extra parameters
+    # so CTC loss is implemented in a lambda layer
+    loss_out = Lambda(ctc_lambda_func, output_shape=(1,), name='ctc')([o,
+                                                                       labels,
+                                                                       input_length,
+                                                                       label_length])
+    model = Model(inputs=[input_data, labels, input_length, label_length], outputs=[loss_out])
+
+    return model
+
+
+
+def qrnn_deepspeech_first(input_dim=39, rnn_size=512, num_classes=29, input_std_noise=.0, residual=None, num_hiddens=256, num_layers=5,
            dropout=0.0 , input_dropout=False, weight_decay=1e-4, activation='tanh'):
     """ Implementation of brsmv1 model
 
@@ -589,10 +633,6 @@ def qrnn_deepspeech1(input_dim=39, rnn_size=512, num_classes=29, input_std_noise
     model = Model(inputs=[input_data, labels, input_length, label_length], outputs=[loss_out])
 
     return model
-
-
-
-
 
 def const(input_dim=26, fc_size=1024, rnn_size=1024, output_dim=29):
     """ Implementation of constrained model for CoreML
