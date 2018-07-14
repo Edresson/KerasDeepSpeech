@@ -566,7 +566,8 @@ def qrnn_deepspeech(input_dim=39, rnn_size=512, num_classes=29, input_std_noise=
                                    return_sequences=True,stride = strides,
                                    dropout=dropout))(o)'''
     #for i, _ in enumerate(range(num_layers)):
-    o = QRNN_Bidirectional(QRNN(num_hiddens,stride =1,
+    o = QRNN_Bidirectional(QRNN(num_hiddens,
+                                   return_sequences=True,
                                    activation=activation))(o)
     
     o = QRNN_Bidirectional(QRNN(num_hiddens,
