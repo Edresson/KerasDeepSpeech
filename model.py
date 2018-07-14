@@ -15,7 +15,7 @@ from keras.layers import Dropout
 from keras.regularizers import l2
 from keras.initializers import random_normal
 from keras.utils.conv_utils import conv_output_length
-from keras.layers import GaussianNoise
+from keras.layers import GaussianNoise,concatenates
 from keras.layers import merge
 
 '''
@@ -479,8 +479,68 @@ def brsmv1(input_dim=39, rnn_size=512, num_classes=29, input_std_noise=.0, resid
                                                                        label_length])
     model = Model(inputs=[input_data, labels, input_length, label_length], outputs=[loss_out])
     return model
-    
+
 def qrnn_deepspeech(input_dim=39, rnn_size=512, num_classes=29, input_std_noise=.0, residual=None, num_hiddens=256, num_layers=5,
+           dropout=0.0 , input_dropout=False, weight_decay=1e-4, activation='tanh'):
+    """ Implementation of brsmv1 model
+
+    Reference:
+        http://www.pee.ufrj.br/index.php/pt/producao-academica/dissertacoes-de-mestrado/2017/2016033174-end-to-end-speech-recognition-applied-to-brazilian-portuguese-using-deep-learning/file
+    """
+
+    K.set_learning_phase(1)
+    input_data = Input(name='the_input', shape=(None, input_dim))
+    o=input_data
+    if input_std_noise is not None:
+        o = GaussianNoise(input_std_noise)(o)
+    if residual is not None:
+        o = TimeDistributed(Dense(num_hiddens*2,
+                                  kernel_regularizer=l2(weight_decay)))(o)
+    if input_dropout:
+        o = Dropout(dropout)(o)
+    x = o    
+    for strides in [1, 1, 2]:
+        x = QRNN(128*2**(strides), 
+                 return_sequences = True, 
+                 stride = strides,
+                dropout = 0.2)(x)
+    x_f = QRNN(512)(x)  
+    x_b = QRNN(512, go_backwards=True)(x)
+    x = concatenate([x_f, x_b])
+    x = Dense(104, activation="relu")(x)
+    o=x
+    '''
+    for i, _ in enumerate(range(num_layers)):
+        new_o = QRNN_Bidirectional(QRNN(num_hiddens,
+                                   return_sequences=True,
+                                   kernel_regularizer=l2(weight_decay),
+                                   bias_regularizer=l2(weight_decay),
+                                   kernel_constraint=maxnorm(10), 
+                                   bias_constraint=maxnorm(10),
+                                   dropout=dropout,
+                                   activation=activation))(o)'''
+        if residual is not None:
+            o = merge([new_o,  o], mode=residual)
+        else:
+            o = new_o
+    o = TimeDistributed(Dense(num_classes,activation='softmax'))(o)
+    # Input of labels and other CTC requirements
+    labels = Input(name='the_labels', shape=[None,], dtype='int32')
+    input_length = Input(name='input_length', shape=[1], dtype='int32')
+    label_length = Input(name='label_length', shape=[1], dtype='int32')
+
+    # Keras doesn't currently support loss funcs with extra parameters
+    # so CTC loss is implemented in a lambda layer
+    loss_out = Lambda(ctc_lambda_func, output_shape=(1,), name='ctc')([o,
+                                                                       labels,
+                                                                       input_length,
+                                                                       label_length])
+    model = Model(inputs=[input_data, labels, input_length, label_length], outputs=[loss_out])
+
+    return model
+
+    
+def qrnn_deepspeech2(input_dim=39, rnn_size=512, num_classes=29, input_std_noise=.0, residual=None, num_hiddens=256, num_layers=5,
            dropout=0.0 , input_dropout=False, weight_decay=1e-4, activation='tanh'):
     """ Implementation of brsmv1 model
 
