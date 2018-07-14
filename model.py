@@ -480,7 +480,7 @@ def brsmv1(input_dim=39, rnn_size=512, num_classes=29, input_std_noise=.0, resid
     model = Model(inputs=[input_data, labels, input_length, label_length], outputs=[loss_out])
     return model
 
-def qrnn_deepspeech3(input_dim=39, rnn_size=512, num_classes=29, input_std_noise=.0, residual=None, num_hiddens=256, num_layers=5,
+def qrnn_deepspeech(input_dim=39, rnn_size=512, num_classes=29, input_std_noise=.0, residual=None, num_hiddens=256, num_layers=5,
            dropout=0.0 , input_dropout=False, weight_decay=1e-4, activation='tanh'):
     """ Implementation of brsmv1 model
 
@@ -543,7 +543,7 @@ def qrnn_deepspeech3(input_dim=39, rnn_size=512, num_classes=29, input_std_noise
     return model
 
     
-def qrnn_deepspeech(input_dim=39, rnn_size=512, num_classes=29, input_std_noise=.0, residual=None, num_hiddens=256, num_layers=5,
+def qrnn_deepspeech1(input_dim=39, rnn_size=512, num_classes=29, input_std_noise=.0, residual=None, num_hiddens=256, num_layers=5,
            dropout=0.0 , input_dropout=False, weight_decay=1e-4, activation='tanh'):
     """ Implementation of brsmv1 model
 
