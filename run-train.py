@@ -175,7 +175,7 @@ def main(args):
 
     cb_list.append(report_cb)
     tempo =time.time()
-    model.summary()
+    
     model.fit_generator(generator=traindata.next_batch(),
                         steps_per_epoch=args.train_steps,
                         epochs=args.epochs,

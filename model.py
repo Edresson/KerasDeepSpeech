@@ -41,7 +41,7 @@ from keras.activations import relu
 import tensorflow as tf
 
 #QRNN
-#from qrnn import QRNN,QRNN_Bidirectional
+from qrnn import QRNN,QRNN_Bidirectional
 from keras.constraints import maxnorm
 
 
