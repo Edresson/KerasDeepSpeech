@@ -501,15 +501,15 @@ def qrnn_deepspeech(input_dim=39, rnn_size=512, num_classes=29, input_std_noise=
         o = Dropout(dropout)(o)
         
     x = o    
-    for strides in [1, 1, 2]:
+    for strides in [1, 1, 2,4]:
         x = QRNN(128*2**(strides), 
                  return_sequences = True, 
                  stride = strides,
                 dropout = 0.2)(x)
-    x = QRNN(512)(x)  
+    #x = QRNN(512)(x)  
     #x_b = QRNN(512, go_backwards=True)(x)
     #x = concatenate([x_f, x_b])
-    x = QRNN(512)(x)
+    #x = QRNN(512)(x)
     x = TimeDistributed(Dense(104, activation="relu"))(x)
     o=x
     '''
