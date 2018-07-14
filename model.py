@@ -481,7 +481,7 @@ def brsmv1(input_dim=39, rnn_size=512, num_classes=29, input_std_noise=.0, resid
     return model
     
 def qrnn_deepspeech(input_dim=39, rnn_size=512, num_classes=29, input_std_noise=.0, residual=None, num_hiddens=256, num_layers=5,
-           dropout=0.2 , input_dropout=False, weight_decay=1e-4, activation='tanh'):
+           dropout=0.0 , input_dropout=False, weight_decay=1e-4, activation='tanh'):
     """ Implementation of brsmv1 model
 
     Reference:
