@@ -15,7 +15,7 @@ from keras.layers import Dropout
 from keras.regularizers import l2
 from keras.initializers import random_normal
 from keras.utils.conv_utils import conv_output_length
-from keras.layers import GaussianNoise,concatenates
+from keras.layers import GaussianNoise,concatenate
 from keras.layers import merge
 
 '''
