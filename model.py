@@ -561,11 +561,6 @@ def qrnn_deepspeech(input_dim=39, rnn_size=512, num_classes=29, input_std_noise=
                                   kernel_regularizer=l2(weight_decay)))(o)
     if input_dropout:
         o = Dropout(dropout)(o)
-    '''for strides in [1, 1, 2]:
-        new_o = QRNN_Bidirectional(QRNN(128*2**(strides),
-                                   return_sequences=True,stride = strides,
-                                   dropout=dropout))(o)'''
-    #for i, _ in enumerate(range(num_layers)):
     o = QRNN_Bidirectional(QRNN(num_hiddens,
                                    return_sequences=True,
                                    activation=activation))(o)
@@ -577,6 +572,10 @@ def qrnn_deepspeech(input_dim=39, rnn_size=512, num_classes=29, input_std_noise=
     o = QRNN_Bidirectional(QRNN(num_hiddens,
                                    return_sequences=True,
                                    
+                                   activation=activation))(o)
+    
+    o = QRNN_Bidirectional(QRNN(num_hiddens,
+                                   return_sequences=True,
                                    activation=activation))(o)
     
     o = QRNN_Bidirectional(QRNN(num_hiddens,
