@@ -565,20 +565,25 @@ def qrnn_deepspeech(input_dim=39, rnn_size=512, num_classes=29, input_std_noise=
         new_o = QRNN_Bidirectional(QRNN(128*2**(strides),
                                    return_sequences=True,stride = strides,
                                    dropout=dropout))(o)'''
-    for i, _ in enumerate(range(num_layers)):
-        new_o = QRNN_Bidirectional(QRNN(num_hiddens,
-                                   return_sequences=True,
-                                   kernel_regularizer=l2(weight_decay),
-                                   bias_regularizer=l2(weight_decay),
-                                   kernel_constraint=maxnorm(10), 
-                                   bias_constraint=maxnorm(10),
-                                   dropout=dropout,
+    #for i, _ in enumerate(range(num_layers)):
+    o = QRNN_Bidirectional(QRNN(num_hiddens,stride =1,
                                    activation=activation))(o)
+    
+    o = QRNN_Bidirectional(QRNN(num_hiddens,
+                                   return_sequences=True,stride =2,
+                                   activation=activation))(o)
+    
+    o = QRNN_Bidirectional(QRNN(num_hiddens,
+                                   return_sequences=True,
+                                   stride =1,
+                                   activation=activation))(o)
+    
+    o = QRNN_Bidirectional(QRNN(num_hiddens,
+                                   return_sequences=True,
+                                   stride =2,
+                                   activation=activation))(o)
+    
         
-        if residual is not None:
-            o = merge([new_o,  o], mode=residual)
-        else:
-            o = new_o
     o = TimeDistributed(Dense(num_classes,activation='softmax'))(o)
     # Input of labels and other CTC requirements
     labels = Input(name='the_labels', shape=[None,], dtype='int32')
