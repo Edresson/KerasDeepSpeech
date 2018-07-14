@@ -493,11 +493,13 @@ def qrnn_deepspeech(input_dim=39, rnn_size=512, num_classes=29, input_std_noise=
     o=input_data
     if input_std_noise is not None:
         o = GaussianNoise(input_std_noise)(o)
+        
     if residual is not None:
         o = TimeDistributed(Dense(num_hiddens*2,
                                   kernel_regularizer=l2(weight_decay)))(o)
     if input_dropout:
         o = Dropout(dropout)(o)
+        
     x = o    
     for strides in [1, 1, 2]:
         x = QRNN(128*2**(strides), 
@@ -518,11 +520,11 @@ def qrnn_deepspeech(input_dim=39, rnn_size=512, num_classes=29, input_std_noise=
                                    kernel_constraint=maxnorm(10), 
                                    bias_constraint=maxnorm(10),
                                    dropout=dropout,
-                                   activation=activation))(o)'''
+                                   activation=activation))(o)
         if residual is not None:
             o = merge([new_o,  o], mode=residual)
         else:
-            o = new_o
+            o = new_o'''
     o = TimeDistributed(Dense(num_classes,activation='softmax'))(o)
     # Input of labels and other CTC requirements
     labels = Input(name='the_labels', shape=[None,], dtype='int32')
