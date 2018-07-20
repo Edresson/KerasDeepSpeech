@@ -479,9 +479,9 @@ def brsmv1(input_dim=39, rnn_size=512, num_classes=29, input_std_noise=.0, resid
                                                                        label_length])
     model = Model(inputs=[input_data, labels, input_length, label_length], outputs=[loss_out])
     return model
+    
 
-def qrnn_deepspeech1(input_dim=39, rnn_size=512, num_classes=29, input_std_noise=.0, residual=None, num_hiddens=256, num_layers=5,
-           dropout=0.0 , input_dropout=False, weight_decay=1e-4, activation='tanh'):
+def Gru_model(input_dim=39, rnn_size=512, num_classes=29, input_std_noise=.0, residual=None, num_hiddens=256, num_layers=5,dropout=0.2 , input_dropout=False, weight_decay=1e-4, activation='tanh'):
     """ Implementation of brsmv1 model
 
     Reference:
@@ -493,40 +493,24 @@ def qrnn_deepspeech1(input_dim=39, rnn_size=512, num_classes=29, input_std_noise
     o=input_data
     if input_std_noise is not None:
         o = GaussianNoise(input_std_noise)(o)
-        
     if residual is not None:
         o = TimeDistributed(Dense(num_hiddens*2,
                                   kernel_regularizer=l2(weight_decay)))(o)
     if input_dropout:
         o = Dropout(dropout)(o)
-        
-    x = o    
-    for strides in [1, 1, 2]:
-        x = QRNN(128*2**(strides), 
-                 return_sequences = True, 
-                 stride = strides,
-                dropout = 0.2)(x)
-    #x = QRNN(512)(x)  
-    #x_b = QRNN(512, go_backwards=True)(x)
-    #x = concatenate([x_f, x_b])
-    #x = QRNN(512)(x)
-    #x = TimeDistributed(Dense(104, activation="relu"))(x)
-    o=x
-    '''
     for i, _ in enumerate(range(num_layers)):
-        new_o = QRNN_Bidirectional(QRNN(num_hiddens,
+        new_o = Bidirectional(GRU(num_hiddens,
                                    return_sequences=True,
                                    kernel_regularizer=l2(weight_decay),
-                                   bias_regularizer=l2(weight_decay),
-                                   kernel_constraint=maxnorm(10), 
-                                   bias_constraint=maxnorm(10),
+                                   recurrent_regularizer=l2(weight_decay),
                                    dropout=dropout,
+                                   recurrent_dropout=dropout,
                                    activation=activation))(o)
         if residual is not None:
             o = merge([new_o,  o], mode=residual)
         else:
-            o = new_o'''
-    o = TimeDistributed(Dense(num_classes,activation='softmax'))(o)
+            o = new_o
+    o = TimeDistributed(Dense(num_classes, activation='softmax'))(o)
     # Input of labels and other CTC requirements
     labels = Input(name='the_labels', shape=[None,], dtype='int32')
     input_length = Input(name='input_length', shape=[1], dtype='int32')
@@ -539,9 +523,7 @@ def qrnn_deepspeech1(input_dim=39, rnn_size=512, num_classes=29, input_std_noise
                                                                        input_length,
                                                                        label_length])
     model = Model(inputs=[input_data, labels, input_length, label_length], outputs=[loss_out])
-
     return model
-
     
 def qrnn_deepspeech(input_dim=39, rnn_size=512, num_classes=29, input_std_noise=.0, residual=None, num_hiddens=256, num_layers=5,
            dropout=0.2 , input_dropout=False, weight_decay=1e-4, activation='tanh'):
