@@ -482,10 +482,10 @@ def brsmv1(input_dim=39, rnn_size=512, num_classes=29, input_std_noise=.0, resid
     
 
 def Gru_model(input_dim=39, rnn_size=512, num_classes=29, input_std_noise=.0, residual=None, num_hiddens=256, num_layers=5,dropout=0.2 , input_dropout=False, weight_decay=1e-4, activation='tanh'):
-    """ Implementation of brsmv1 model
+    """ Implementation of Gru teste model
 
     Reference:
-        http://www.pee.ufrj.br/index.php/pt/producao-academica/dissertacoes-de-mestrado/2017/2016033174-end-to-end-speech-recognition-applied-to-brazilian-portuguese-using-deep-learning/file
+    
     """
 
     K.set_learning_phase(1)
@@ -527,10 +527,10 @@ def Gru_model(input_dim=39, rnn_size=512, num_classes=29, input_std_noise=.0, re
     
 def qrnn_deepspeech(input_dim=39, rnn_size=512, num_classes=29, input_std_noise=.0, residual=None, num_hiddens=256, num_layers=5,
            dropout=0.2 , input_dropout=False, weight_decay=1e-4, activation='tanh'):
-    """ Implementation of brsmv1 model
+    """ Implementation of Qrnn DeepSpeech
 
-    Reference:
-        http://www.pee.ufrj.br/index.php/pt/producao-academica/dissertacoes-de-mestrado/2017/2016033174-end-to-end-speech-recognition-applied-to-brazilian-portuguese-using-deep-learning/file
+    Reference: 
+
     """
 
     K.set_learning_phase(1)
@@ -581,39 +581,41 @@ def qrnn_deepspeech(input_dim=39, rnn_size=512, num_classes=29, input_std_noise=
 
     return model
 
+def ConvDilated(input_dim=39, conv_size=512, num_classes=29, input_std_noise=.0, residual=None, num_hiddens=256, num_layers=5,
+           dropout=0.2 , input_dropout=False, weight_decay=1e-4, activation='tanh'):
+    """ Implementation of ConvDilated DeepSpeech
 
+    Reference: 
 
-def qrnn_deepspeech_first(input_dim=39, rnn_size=512, num_classes=29, input_std_noise=.0, residual=None, num_hiddens=256, num_layers=5,
-           dropout=0.0 , input_dropout=False, weight_decay=1e-4, activation='tanh'):
-    """ Implementation of brsmv1 model
-
-    Reference:
-        http://www.pee.ufrj.br/index.php/pt/producao-academica/dissertacoes-de-mestrado/2017/2016033174-end-to-end-speech-recognition-applied-to-brazilian-portuguese-using-deep-learning/file
     """
 
     K.set_learning_phase(1)
-    input_data = Input(name='the_input', shape=(None, input_dim))
+    input_data = Input(name='the_input', shape=(30, input_dim))
     o=input_data
     if input_std_noise is not None:
         o = GaussianNoise(input_std_noise)(o)
-    if residual is not None:
-        o = TimeDistributed(Dense(num_hiddens*2,
-                                  kernel_regularizer=l2(weight_decay)))(o)
+        
     if input_dropout:
         o = Dropout(dropout)(o)
-    for i, _ in enumerate(range(num_layers)):
-        new_o = QRNN_Bidirectional(QRNN(num_hiddens,
-                                   return_sequences=True,
-                                   kernel_regularizer=l2(weight_decay),
-                                   bias_regularizer=l2(weight_decay),
-                                   kernel_constraint=maxnorm(10), 
-                                   bias_constraint=maxnorm(10),
-                                   dropout=dropout,
-                                   activation=activation))(o)
-        if residual is not None:
-            o = merge([new_o,  o], mode=residual)
-        else:
-            o = new_o
+    x = Conv1D(conv_size, 
+                   kernel_size = 1)(o)
+    x = Conv1D(int(conv_size//2), 
+                   kernel_size = 1)(x)
+    for j in range(2):
+            x = Conv1D(int(conv_size//2), 
+                       kernel_size = 1, 
+                       dilation_rate = 3**j)(x)
+    for j in range(2):
+            x = Conv1D(39*2, 
+                       kernel_size = 1, 
+                       dilation_rate = 3**j)(x)
+            
+    '''for dilation_rate in range(3):
+        for i in range(3):
+            x = Conv1D(32*2**(i), 
+                       kernel_size = 3, 
+                       dilation_rate = dilation_rate+1)(x)'''
+    o = TimeDistributed(Dense(75,activation='relu'))(x)        
     o = TimeDistributed(Dense(num_classes,activation='softmax'))(o)
     # Input of labels and other CTC requirements
     labels = Input(name='the_labels', shape=[None,], dtype='int32')
@@ -629,6 +631,7 @@ def qrnn_deepspeech_first(input_dim=39, rnn_size=512, num_classes=29, input_std_
     model = Model(inputs=[input_data, labels, input_length, label_length], outputs=[loss_out])
 
     return model
+
 
 def const(input_dim=26, fc_size=1024, rnn_size=1024, output_dim=29):
     """ Implementation of constrained model for CoreML
