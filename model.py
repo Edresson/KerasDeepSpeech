@@ -590,7 +590,64 @@ def ConvDilated(input_dim=39, conv_size=512, num_classes=29, input_std_noise=.0,
     """
 
     K.set_learning_phase(1)
-    input_data = Input(name='the_input', shape=(None, input_dim))
+    input_data = Input(name='the_input', shape=(30, input_dim))
+    o=input_data
+    if input_std_noise is not None:
+        o = GaussianNoise(input_std_noise)(o)
+        
+    if input_dropout:
+        o = Dropout(dropout)(o)
+    for i in range(2):
+        x = Conv1D(conv_size, kernel_size = 1)(o)
+    for i in range(2):    
+        x = Conv1D(int(conv_size//2),kernel_size = 1)(x)
+        
+    for j in range(2):
+            x = Conv1D(int(conv_size//2), 
+                       kernel_size = 1, 
+                       dilation_rate = 3**j)(x)
+    for j in range(2):
+            x = Conv1D(int(conv_size//2)*2, 
+                       kernel_size = , 
+                       dilation_rate = 3**j)(x)
+            
+    '''for dilation_rate in range(3):
+        for i in range(3):
+            x = Conv1D(32*2**(i), 
+                       kernel_size = 3, 
+                       dilation_rate = dilation_rate+1)(x)'''
+    o = QRNN_Bidirectional(QRNN(num_hiddens,
+                                   return_sequences=True,
+                                   activation=activation))(x)
+    #o = QRNN_Bidirectional(QRNN(num_hiddens, return_sequences=True, activation=activation))(x)
+    
+    #o = TimeDistributed(Dense(75,activation='relu'))(x)        
+    o = TimeDistributed(Dense(num_classes,activation='softmax'))(o)
+    # Input of labels and other CTC requirements
+    labels = Input(name='the_labels', shape=[None,], dtype='int32')
+    input_length = Input(name='input_length', shape=[1], dtype='int32')
+    label_length = Input(name='label_length', shape=[1], dtype='int32')
+
+    # Keras doesn't currently support loss funcs with extra parameters
+    # so CTC loss is implemented in a lambda layer
+    loss_out = Lambda(ctc_lambda_func, output_shape=(1,), name='ctc')([o,
+                                                                       labels,
+                                                                       input_length,
+                                                                       label_length])
+    model = Model(inputs=[input_data, labels, input_length, label_length], outputs=[loss_out])
+
+    return model
+
+def ConvDilated_first(input_dim=39, conv_size=512, num_classes=29, input_std_noise=.0, residual=None, num_hiddens=256, num_layers=5,
+           dropout=0.2 , input_dropout=False, weight_decay=1e-4, activation='tanh'):
+    """ Implementation of ConvDilated DeepSpeech
+
+    Reference: 
+
+    """
+
+    K.set_learning_phase(1)
+    input_data = Input(name='the_input', shape=(30, input_dim))
     o=input_data
     if input_std_noise is not None:
         o = GaussianNoise(input_std_noise)(o)
