@@ -604,11 +604,11 @@ def ConvDilated(input_dim=39, conv_size=512, num_classes=29, input_std_noise=.0,
         
     for j in range(2):
             x = Conv1D(int(conv_size//2), 
-                       kernel_size = 1, 
+                       kernel_size = 3, 
                        dilation_rate = 3**j)(x)
     for j in range(2):
             x = Conv1D(int(conv_size//2)*2, 
-                       kernel_size = , 
+                       kernel_size = 3, 
                        dilation_rate = 3**j)(x)
             
     '''for dilation_rate in range(3):
