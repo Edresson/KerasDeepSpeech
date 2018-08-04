@@ -590,7 +590,7 @@ def ConvDilated(input_dim=39, conv_size=512, num_classes=29, input_std_noise=.0,
     """
 
     K.set_learning_phase(1)
-    input_data = Input(name='the_input', shape=(30, input_dim))
+    input_data = Input(name='the_input', shape=(None, input_dim))
     o=input_data
     if input_std_noise is not None:
         o = GaussianNoise(input_std_noise)(o)
