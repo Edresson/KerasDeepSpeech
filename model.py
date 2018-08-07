@@ -20,8 +20,6 @@ from keras.layers import merge
 
 '''
 This file builds the models
-
-
 '''
 
 import numpy as np
@@ -30,7 +28,7 @@ from keras import backend as K
 from keras.models import Model, Sequential
 from keras.layers.recurrent import SimpleRNN
 from keras.layers import Dense, Activation, Bidirectional, Reshape,Flatten, Lambda, Input,\
-    Masking, Convolution1D, BatchNormalization, GRU, Conv1D, RepeatVector, Conv2D
+    Masking, Convolution1D, BatchNormalization, GRU, Conv1D, RepeatVector, Conv2D,UpSampling1D,MaxPooling1D
 from keras.optimizers import SGD, adam
 from keras.layers import ZeroPadding1D, Convolution1D, ZeroPadding2D, Convolution2D, MaxPooling2D, GlobalMaxPooling2D
 from keras.layers import TimeDistributed, Dropout
@@ -590,38 +588,37 @@ def ConvDilated(input_dim=39, conv_size=512, num_classes=29, input_std_noise=.0,
     """
 
     K.set_learning_phase(1)
-    input_data = Input(name='the_input', shape=(None, input_dim))
+    input_data = Input(name='the_input', shape=(10, input_dim))
     o=input_data
     if input_std_noise is not None:
         o = GaussianNoise(input_std_noise)(o)
         
     if input_dropout:
         o = Dropout(dropout)(o)
-    for i in range(2):
-        x = Conv1D(conv_size, kernel_size = 1)(o)
-    for i in range(2):    
-        x = Conv1D(int(conv_size//2),kernel_size = 1)(x)
+    x=o
+    for j in range(6):
+        x = Conv1D(16, kernel_size = 3,padding='causal')(x)
+    for j in range(2):    
+        x = Conv1D(8,kernel_size = 3,padding='causal',dilation_rate = 3**j)(x)
+    for j in range(2):    
+        x = Conv1D(4,kernel_size = 3,padding='causal',dilation_rate = 3**j)(x)
+    for j in range(2):    
+        x = Conv1D(2,kernel_size = 3,padding='causal')(x)
         
-    for j in range(2):
-            x = Conv1D(int(conv_size//2), 
-                       kernel_size = 1, 
-                       dilation_rate = 3**j)(x)
-    for j in range(2):
-            x = Conv1D(int(conv_size//2)*2, 
-                       kernel_size = 1, 
-                       dilation_rate = 3**j)(x)
+            
+    """for j in range(2):
+            x = Conv1D(int(conv_size//2)*2,name='dilated2-'+str(j), padding='causal',
+                       kernel_size = 3, 
+                       dilation_rate = 3**j)(x)"""
             
     '''for dilation_rate in range(3):
         for i in range(3):
             x = Conv1D(32*2**(i), 
                        kernel_size = 3, 
                        dilation_rate = dilation_rate+1)(x)'''
-    o = QRNN_Bidirectional(QRNN(num_hiddens,
-                                   return_sequences=True,
-                                   activation=activation))(x)
     #o = QRNN_Bidirectional(QRNN(num_hiddens, return_sequences=True, activation=activation))(x)
     
-    #o = TimeDistributed(Dense(75,activation='relu'))(x)        
+    o = TimeDistributed(Dense(256,activation='relu'))(x)        
     o = TimeDistributed(Dense(num_classes,activation='softmax'))(o)
     # Input of labels and other CTC requirements
     labels = Input(name='the_labels', shape=[None,], dtype='int32')
