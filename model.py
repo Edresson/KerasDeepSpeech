@@ -596,14 +596,14 @@ def ConvDilated(input_dim=39, conv_size=512, num_classes=29, input_std_noise=.0,
     if input_dropout:
         o = Dropout(dropout)(o)
     x=o
-    for j in range(6):
+    '''for j in range(6):
         x = Conv1D(16, kernel_size = 3,padding='causal')(x)
     for j in range(2):    
         x = Conv1D(8,kernel_size = 3,padding='causal',dilation_rate = 3**j)(x)
     for j in range(2):    
         x = Conv1D(4,kernel_size = 3,padding='causal',dilation_rate = 3**j)(x)
     for j in range(2):    
-        x = Conv1D(2,kernel_size = 3,padding='causal')(x)
+        x = Conv1D(2,kernel_size = 3,padding='causal')(x)'''
         
             
     """for j in range(2):
