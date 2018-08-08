@@ -43,6 +43,62 @@ from qrnn import QRNN,QRNN_Bidirectional
 from keras.constraints import maxnorm
 
 
+def hc(inputs,
+       filters=None,
+       size=1,
+       rate=1,
+       padding="SAME",
+       dropout_rate=0,
+       use_bias=True,
+       activation_fn=None,
+       training=True,
+       scope="hc",
+       reuse=None):
+    '''
+    Args:
+      inputs: A 3-D tensor with shape of [batch, time, depth].
+      filters: An int. Number of outputs (=activation maps)
+      size: An int. Filter size.
+      rate: An int. Dilation rate.
+      padding: Either `same` or `valid` or `causal` (case-insensitive).
+      use_bias: A boolean.
+      activation_fn: A string.
+      training: A boolean. If True, dropout is applied.
+      scope: Optional scope for `variable_scope`.
+      reuse: Boolean, whether to reuse the weights of a previous layer
+        by the same name.
+
+    Returns:
+      A masked tensor of the same shape and dtypes as `inputs`.
+    '''
+    _inputs = inputs
+    with tf.variable_scope(scope):
+        if padding.lower() == "causal":
+            # pre-padding for causality
+            pad_len = (size - 1) * rate  # padding size
+            inputs = tf.pad(inputs, [[0, 0], [pad_len, 0], [0, 0]])
+            padding = "valid"
+
+        if filters is None:
+            filters = inputs.get_shape().as_list()[-1]
+
+
+        params = {"inputs": inputs, "filters": 2*filters, "kernel_size": size,
+                  "dilation_rate": rate, "padding": padding, "use_bias": use_bias,
+                  "kernel_initializer": tf.contrib.layers.variance_scaling_initializer(), "reuse": reuse}
+
+        tensor = tf.layers.conv1d(**params)
+        H1, H2 = tf.split(tensor, 2, axis=-1)
+        H1 = normalize(H1, scope="H1")
+        H2 = normalize(H2, scope="H2")
+        H1 = tf.nn.sigmoid(H1, "gate")
+        H2 = activation_fn(H2, "info") if activation_fn is not None else H2
+        tensor = H1*H2 + (1.-H1)*_inputs
+
+        tensor = tf.layers.dropout(tensor, rate=dropout_rate, training=training)
+
+    return tensor
+
 def selu(x):
     # from Keras 2.0.6 - does not exist in 2.0.4
     """Scaled Exponential Linear Unit. (Klambauer et al., 2017)
@@ -596,14 +652,14 @@ def ConvDilated(input_dim=39, conv_size=512, num_classes=29, input_std_noise=.0,
     if input_dropout:
         o = Dropout(dropout)(o)
     x=o
-    '''for j in range(6):
+    for j in range(6):
         x = Conv1D(16, kernel_size = 3,padding='causal')(x)
     for j in range(2):    
         x = Conv1D(8,kernel_size = 3,padding='causal',dilation_rate = 3**j)(x)
     for j in range(2):    
         x = Conv1D(4,kernel_size = 3,padding='causal',dilation_rate = 3**j)(x)
     for j in range(2):    
-        x = Conv1D(2,kernel_size = 3,padding='causal')(x)'''
+        x = Conv1D(2,kernel_size = 3,padding='causal')(x)
         
             
     """for j in range(2):
@@ -635,7 +691,7 @@ def ConvDilated(input_dim=39, conv_size=512, num_classes=29, input_std_noise=.0,
 
     return model
 
-def ConvDilated_first(input_dim=39, conv_size=512, num_classes=29, input_std_noise=.0, residual=None, num_hiddens=256, num_layers=5,
+def ConvDilated_HighWay(input_dim=39, conv_size=512, num_classes=29, input_std_noise=.0, residual=None, num_hiddens=256, num_layers=5,
            dropout=0.2 , input_dropout=False, weight_decay=1e-4, activation='tanh'):
     """ Implementation of ConvDilated DeepSpeech
 
@@ -651,25 +707,17 @@ def ConvDilated_first(input_dim=39, conv_size=512, num_classes=29, input_std_noi
         
     if input_dropout:
         o = Dropout(dropout)(o)
-    x = Conv1D(conv_size, 
-                   kernel_size = 1)(o)
-    x = Conv1D(int(conv_size//2), 
-                   kernel_size = 1)(x)
-    for j in range(2):
-            x = Conv1D(int(conv_size//2), 
-                       kernel_size = 1, 
-                       dilation_rate = 3**j)(x)
-    for j in range(2):
-            x = Conv1D(39*2, 
-                       kernel_size = 1, 
-                       dilation_rate = 3**j)(x)
-            
-    '''for dilation_rate in range(3):
-        for i in range(3):
-            x = Conv1D(32*2**(i), 
-                       kernel_size = 3, 
-                       dilation_rate = dilation_rate+1)(x)'''
-    o = TimeDistributed(Dense(75,activation='relu'))(x)        
+    x=o
+    for j in range(6):
+        x = Conv1D(16, kernel_size = 3,padding='causal')(x)
+    for j in range(2):    
+        x = Conv1D(8,kernel_size = 3,padding='causal',dilation_rate = 3**j)(x)
+    for j in range(2):    
+        x = Conv1D(4,kernel_size = 3,padding='causal',dilation_rate = 3**j)(x)
+    for j in range(2):    
+        x = Conv1D(2,kernel_size = 3,padding='causal')(x)
+        
+    o = TimeDistributed(Dense(256,activation='relu'))(x)        
     o = TimeDistributed(Dense(num_classes,activation='softmax'))(o)
     # Input of labels and other CTC requirements
     labels = Input(name='the_labels', shape=[None,], dtype='int32')
@@ -685,7 +733,7 @@ def ConvDilated_first(input_dim=39, conv_size=512, num_classes=29, input_std_noi
     model = Model(inputs=[input_data, labels, input_length, label_length], outputs=[loss_out])
 
     return model
-
+    
 
 def const(input_dim=26, fc_size=1024, rnn_size=1024, output_dim=29):
     """ Implementation of constrained model for CoreML

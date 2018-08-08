@@ -132,6 +132,8 @@ def main(args):
             model = Gru_model(input_dim=26, rnn_size=512, num_classes=29, input_std_noise=.0, residual=None, num_hiddens=256, num_layers=5,dropout=0.2 , input_dropout=False, weight_decay=1e-4, activation='tanh')
         elif(args.model_arch == 10):
             model = ConvDilated(input_dim=26, conv_size=512, num_classes=29, input_std_noise=.0, residual=None, num_hiddens=256, num_layers=5,dropout=0.2 , input_dropout=False, weight_decay=1e-4, activation='tanh')
+        elif(args.model_arch == 11):
+            model = ConvDilated_HighWay(input_dim=26, conv_size=512, num_classes=29, input_std_noise=.0, residual=None, num_hiddens=256, num_layers=5,dropout=0.2 , input_dropout=False, weight_decay=1e-4, activation='tanh')
         
         else:
             raise("model not found")
