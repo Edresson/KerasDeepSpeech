@@ -31,6 +31,8 @@ import sys
 
 
 #######################################################
+import numpy as np
+np.fft.restore_all()
 
 # Prevent pool_allocator message
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'

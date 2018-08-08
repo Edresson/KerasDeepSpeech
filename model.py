@@ -710,8 +710,9 @@ def ConvDilated_HighWay(input_dim=39, conv_size=512, num_classes=29, input_std_n
     x=o
     for j in range(6):
         x = Conv1D(16, kernel_size = 3,padding='causal')(x)
-    for j in range(2):    
-        x = Conv1D(8,kernel_size = 3,padding='causal',dilation_rate = 3**j)(x)
+    for j in range(2):
+        x=Lambda(hc, name='hc1-'+str(3**j))(o)
+        #x = Conv1D(8,kernel_size = 3,padding='causal',dilation_rate = 3**j)(x)
     for j in range(2):    
         x = Conv1D(4,kernel_size = 3,padding='causal',dilation_rate = 3**j)(x)
     for j in range(2):    
