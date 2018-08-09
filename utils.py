@@ -23,6 +23,7 @@ from model import clipped_relu, selu
 
 # these text/int characters are modified
 # from the DS2 github.com/baidu-research/ba-dls-deepspeech
+from qrnn import QRNN,QRNN_Bidirectional
 
 def text_to_int_sequence(text):
     """ Use a character map and convert text to an integer sequence """
@@ -93,7 +94,8 @@ def load_model_checkpoint(path, summary=True):
     get_custom_objects().update({"clipped_relu": clipped_relu})
     get_custom_objects().update({"selu": selu})
     # get_custom_objects().update({"TF_NewStatus": None})
-
+    get_custom_objects().update({'QRNN_Bidirectional': QRNN_Bidirectional})
+    get_custom_objects().update({'QRNN':QRNN})
     jsonfilename = path+".json"
     weightsfilename = path+".h5"
 
@@ -122,11 +124,13 @@ def load_cmodel_checkpoint(path, summary=True):
     get_custom_objects().update({"clipped_relu": clipped_relu})
     get_custom_objects().update({"selu": selu})
     # get_custom_objects().update({"TF_NewStatus": None})
-
+    get_custom_objects().update({'QRNN_Bidirectional': QRNN_Bidirectional})
+    get_custom_objects().update({'QRNN':QRNN})
+    
     cfilename = path+".h5"
 
     K.set_learning_phase(1)
-    loaded_model = load_model(cfilename)
+    loaded_model = load_model(cfilename,custom_objects={'QRNN_Bidirectional': QRNN_Bidirectional(),'QRNN':QRNN() })
 
 
     if(summary):

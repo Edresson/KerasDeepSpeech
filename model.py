@@ -43,62 +43,6 @@ from qrnn import QRNN,QRNN_Bidirectional
 from keras.constraints import maxnorm
 
 
-def hc(inputs,
-       filters=None,
-       size=1,
-       rate=1,
-       padding="SAME",
-       dropout_rate=0,
-       use_bias=True,
-       activation_fn=None,
-       training=True,
-       scope="hc",
-       reuse=None):
-    '''
-    Args:
-      inputs: A 3-D tensor with shape of [batch, time, depth].
-      filters: An int. Number of outputs (=activation maps)
-      size: An int. Filter size.
-      rate: An int. Dilation rate.
-      padding: Either `same` or `valid` or `causal` (case-insensitive).
-      use_bias: A boolean.
-      activation_fn: A string.
-      training: A boolean. If True, dropout is applied.
-      scope: Optional scope for `variable_scope`.
-      reuse: Boolean, whether to reuse the weights of a previous layer
-        by the same name.
-
-    Returns:
-      A masked tensor of the same shape and dtypes as `inputs`.
-    '''
-    _inputs = inputs
-    with tf.variable_scope(scope):
-        if padding.lower() == "causal":
-            # pre-padding for causality
-            pad_len = (size - 1) * rate  # padding size
-            inputs = tf.pad(inputs, [[0, 0], [pad_len, 0], [0, 0]])
-            padding = "valid"
-
-        if filters is None:
-            filters = inputs.get_shape().as_list()[-1]
-
-
-        params = {"inputs": inputs, "filters": 2*filters, "kernel_size": size,
-                  "dilation_rate": rate, "padding": padding, "use_bias": use_bias,
-                  "kernel_initializer": tf.contrib.layers.variance_scaling_initializer(), "reuse": reuse}
-
-        tensor = tf.layers.conv1d(**params)
-        H1, H2 = tf.split(tensor, 2, axis=-1)
-        H1 = normalize(H1, scope="H1")
-        H2 = normalize(H2, scope="H2")
-        H1 = tf.nn.sigmoid(H1, "gate")
-        H2 = activation_fn(H2, "info") if activation_fn is not None else H2
-        tensor = H1*H2 + (1.-H1)*_inputs
-
-        tensor = tf.layers.dropout(tensor, rate=dropout_rate, training=training)
-
-    return tensor
-
 def selu(x):
     # from Keras 2.0.6 - does not exist in 2.0.4
     """Scaled Exponential Linear Unit. (Klambauer et al., 2017)
@@ -693,8 +637,16 @@ def ConvDilated(input_dim=39, conv_size=512, num_classes=29, input_std_noise=.0,
 
 def ConvDilated_HighWay(input_dim=39, conv_size=512, num_classes=29, input_std_noise=.0, residual=None, num_hiddens=256, num_layers=5,
            dropout=0.2 , input_dropout=False, weight_decay=1e-4, activation='tanh'):
-    """ Implementation of ConvDilated DeepSpeech
-
+    """ Implementation of ConvDilated+HighWay DeepSpeech
+    * Increasing Receptive Field for consideration all context:
+       - Larger Filters ( usually does not produce optimal results)
+       - Adding Layers( good, but produce vanishing gradient problem):
+          alternatives for fix vanishing gradient problem:
+          + HighWay 
+          + ResNets
+          + DenseNets
+       - Dilated Convolutions ( good, usually used with adding layers)
+       
     Reference: 
 
     """
@@ -711,7 +663,7 @@ def ConvDilated_HighWay(input_dim=39, conv_size=512, num_classes=29, input_std_n
     for j in range(6):
         x = Conv1D(16, kernel_size = 3,padding='causal')(x)
     for j in range(2):
-        x=Lambda(hc, name='hc1-'+str(3**j))(o)
+        x=Lambda(hc)(x)
         #x = Conv1D(8,kernel_size = 3,padding='causal',dilation_rate = 3**j)(x)
     for j in range(2):    
         x = Conv1D(4,kernel_size = 3,padding='causal',dilation_rate = 3**j)(x)
