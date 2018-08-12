@@ -112,7 +112,7 @@ class ReportCallback(callbacks.Callback):
             self.validdata.genshuffle()
 
 
-        self.validate_epoch_end(verbose=1)
+        self.validate_epoch_end(verbose=0)
 
         if self.save:
             #check to see lowest wer/ler on prev values
