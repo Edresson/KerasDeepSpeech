@@ -87,7 +87,7 @@ def startloop(rec_number):
          }
 
     df_train = pd.DataFrame(a, columns=['wav_filename', 'wav_filesize', 'transcript'], dtype=int)
-    df_train.to_csv("./data/live/live.csv", sep=',', header=True, index=False, encoding='ascii')
+    df_train.to_csv("live/live.csv", sep=',', header=True, index=False, encoding='ascii')
 
 def record(name, dir, trans):
 
@@ -139,12 +139,12 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     #parser.add_argument('--loadcheckpointpath', type=str, default='./checkpoints/trimmed/',
     #parser.add_argument('--loadcheckpointpath', type=str, default='./checkpoints/epoch/LER-WER-best-DS3_2017-09-02_13-40',
-    parser.add_argument('--loadcheckpointpath', type=str, default='../checkpoints/epoch/LER-WER-best-DS3_2017-09-03_12-12',
+    parser.add_argument('--loadcheckpointpath', type=str, default='./checkpoints/epoch/LER-WER-best-DS8_2018-07-14_15-07',
                         help='If value set, load the checkpoint json '
                              'weights assumed as same name '
                              ' e.g. --loadcheckpointpath ./checkpoints/'
                              'TRIMMED_ds_ctc_model ')
-    parser.add_argument('--model_arch', type=int, default=3,
+    parser.add_argument('--model_arch', type=int, default=8,
                         help='choose between model_arch versions (when training not loading) '
                              '--model_arch=1 uses DS1 fully connected layers with simplernn'
                              '--model_arch=2 uses DS2 fully connected with GRU'
@@ -228,7 +228,9 @@ if __name__ == '__main__':
         report = K.function([input_data, K.learning_phase()], [y_pred])
         report_cb = ReportCallback(report, testdata, model, args.name, save=False)
         report_cb.force_output = True
-        report_cb.on_epoch_end(0, logs=None)
+        label,corrected=report_cb.live_predict(0, logs=None)
+        #report_cb.on_epoch_end(0, logs=None)
+        print label,corrected
 
         tryagain = str(raw_input('do you want to try again? press N to stop \n:'))
 

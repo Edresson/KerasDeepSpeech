@@ -75,7 +75,7 @@ class ReportCallback(callbacks.Callback):
                                                                                      str(j), decode_sent,
                                                                                      str(j), corrected))
 
-                    # print("Sample Decoded WER:{}, Corrected LM WER:{}".format(dec_wer, cor_wer))
+                    #print("Sample Decoded WER:{}, Corrected LM WER:{}".format(dec_wer, cor_wer))
 
                 originals.append(label)
                 results.append(corrected)
@@ -104,15 +104,36 @@ class ReportCallback(callbacks.Callback):
         # del decode_sent,
 
 
+    def live_predict(self, epoch, logs=None):
+        K.set_learning_phase(0)
+
+
+        self.validdata.cur_index = 0  # reset index
+
+
+        word_batch = next(self.validdata_next_val)[0]
+        decoded_res = decode_batch(self.test_func,
+                                       word_batch['the_input'][0:self.batch_size],
+                                       self.batch_size)
+
+        
+        decode_sent = decoded_res[0]
+        corrected = correction(decode_sent)
+        label = word_batch['source_str'][0]
+        #activate learning phase - incase keras doesn't
+        K.set_learning_phase(1)
+
+        return label,corrected 
+
+
+
+        
+
     def on_epoch_end(self, epoch, logs=None):
         K.set_learning_phase(0)
 
-        if(self.shuffle_epoch_end):
-            print("shuffle_epoch_end")
-            self.validdata.genshuffle()
 
-
-        self.validate_epoch_end(verbose=0)
+        self.validate_epoch_end(verbose=1)
 
         if self.save:
             #check to see lowest wer/ler on prev values
@@ -148,6 +169,7 @@ class ReportCallback(callbacks.Callback):
         K.set_learning_phase(1)
 
 
+        
 def decode_batch(test_func, word_batch, batch_size):
     ret = []
     output = test_func([word_batch])[0] #16xTIMEx29 = batch x time x classes

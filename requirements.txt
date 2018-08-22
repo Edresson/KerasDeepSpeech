@@ -3,13 +3,13 @@ cffi==1.10.0
 funcsigs==1.0.2
 h5py==2.7.1
 kenlm==0.0.0
-Keras==2.0.4
+Keras==2.0.6
 mock==2.0.0
 numpy
 pandas==0.20.3
 pbr==3.1.1
 protobuf==3.4.0
-#PyAudio==0.2.11
+PyAudio==0.2.11
 pycparser==2.18
 Pympler==0.5
 python-dateutil==2.6.1
