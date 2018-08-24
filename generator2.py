@@ -9,7 +9,7 @@ import soundfile
 import scipy
 from aubio import source, pvoc, mfcc
 from numpy import vstack, zeros, diff
-import librosa 
+
 
 
 
@@ -217,12 +217,10 @@ def get_intseq(trans, max_intseq_length=80):
     return t
 
 def get_max_time(filename):
-    y, sr = librosa.load(filename)            
-    r = librosa.feature.mfcc(y=y, sr=sr, n_mfcc=26)# 2D array ->  mfcc_features x timesamples 
-    # print (r.shape)    
- 	
-  
-    return r.shape[1] 
+    fs, audio = wav.read(filename)
+    r = p.mfcc(audio, samplerate=fs, numcep=26)  # 2D array -> timesamples x mfcc_features
+    # print(r.shape)
+    return r.shape[0]  #
 
 def get_max_specto_time(filename):
     r = spectrogram_from_file(filename)
@@ -250,10 +248,10 @@ def make_aubio_shape(filename, padlen=778):
     return X  # 2D array -> MAXtimesamples x mfcc_features {778 x 26}
 
 def make_mfcc_shape(filename, padlen=778):
-    y, sr = librosa.load(filename)            
-    r = librosa.feature.mfcc(y=y, sr=sr, n_mfcc=26)# 2D array -> mfcc_features x timesamples
-    X = pad_sequences(r, maxlen=padlen, dtype='float', padding='post', truncating='post').T #timesamples X mfcc_features
-    #print(X.shape)
+    fs, audio = wav.read(filename)
+    r = p.mfcc(audio, samplerate=fs, numcep=26)  # 2D array -> timesamples x mfcc_features
+    t = np.transpose(r)  # 2D array ->  mfcc_features x timesamples
+    X = pad_sequences(t, maxlen=padlen, dtype='float', padding='post', truncating='post').T
     return X  # 2D array -> MAXtimesamples x mfcc_features {778 x 26}
 
 def get_xsize(val):
