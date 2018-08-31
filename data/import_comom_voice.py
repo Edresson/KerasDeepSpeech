@@ -128,9 +128,9 @@ def _convert_audio_and_split_sentences(LIBRIVOX_DIR):
         train_label = LIBRIVOX_DIR
 	files =[]
 	dirf=LIBRIVOX_DIR.split('/')[-2]+'/'+LIBRIVOX_DIR.split('/')[-1]
-	print(train_label,dirf)
+	#print(train_label,dirf)
         dir_files = LIBRIVOX_DIR.replace(dirf,'')
-	print('dir filess',dir_files)
+	#print('dir filess',dir_files)
 
         for line in codecs.open(train_label, 'r', encoding='utf8'):
 	    
@@ -143,20 +143,19 @@ def _convert_audio_and_split_sentences(LIBRIVOX_DIR):
 
                 #print(split[0])
                 audio_file = os.path.join(dir_files,split[0])
-                transcript = line[1]
+                transcript = split[1]
 
-                transcript = unicodedata.normalize("NFKD", transcript)  \
-                                            .encode("ascii", "ignore")      \
-                                            .decode("ascii", "ignore")
+                
 
                 transcript = transcript.lower().strip()
-			
+		#print	(transcript)
                 wav_filesize = os.path.getsize(audio_file)
                 sound = AudioSegment.from_file(audio_file, "mp3")
                 normalized_sound = match_target_amplitude(sound, -20.0)
                 normalized_sound.export(audio_file.replace('.mp3','.wav'), format="wav")
+		os.remove(audio_file)
 		wav_filesize = os.path.getsize(audio_file.replace('.mp3','.wav'))
-                os.remove(audio_file)
+                
 		
                 files.append((audio_file.replace('.mp3','.wav'), wav_filesize, transcript))
 	    

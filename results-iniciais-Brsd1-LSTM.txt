@@ -1,0 +1,809 @@
+Epoca 3 LSTM BRSD1 model:
+
+
+0.GroundTruth:to discover myself to the cottagers
+0.Transcribed:to descovve mysel to the poagens
+0.LMCorrected:to descovve myself to the pagers
+
+4.GroundTruth:the story of the grecian king
+4.Transcribed:the sory the grecion cing
+4.LMCorrected:the ory the grecian king
+
+4.GroundTruth:it has been the work of many generations
+4.Transcribed:it is ten the wort tof many gerations
+4.LMCorrected:it is ten the work of many generations
+
+
+
+
+
+
+
+7 epocas:
+1.GroundTruth:and on perceiving whom she said to the girls
+1.Transcribed:and on prersevinom she said to the corts
+1.LMCorrected:and on prersevinom she said to the corys
+
+4.GroundTruth:or commander of military or naval forces
+4.Transcribed:or commaner of mitery or navlel forches
+4.LMCorrected:or commander of misery or navel forces
+
+3.GroundTruth:he knew every line in that sharp profile thank you
+3.Transcribed:he no every lin in that shar profil the you
+3.LMCorrected:he no every line in that sharp profile the you
+
+4.GroundTruth:nothing is more certain answered the lady
+4.Transcribed:nothing is mor sertin anse the laty
+4.LMCorrected:nothing is more certain ansel the lamy
+
+3.GroundTruth:and finally with an admonition that the rest of the country
+3.Transcribed:and file wasing had menising that te rast of the tontry
+3.LMCorrected:and file waving had lensing that the rest of the country
+
+0.GroundTruth:and at the head of a great body of his followers
+0.Transcribed:and at the hedd of ve great body of is falowrs
+0.LMCorrected:and at the head of ve great body of is flowers
+SHUFFLING as reached end of data
+########################################################
+Completed Validation Test: WER & LER results
+('Test WER average is   :', 0.826875064080498)
+('Test LER average is   :', 37.06732851985559)
+('Test normalised LER is:', 0.42411645312541757)
+########################################################
+
+epoca 13:
+
+
+
+0.GroundTruth:when she was with her mother her father seemed the best person to apply to for information and when with him
+0.Transcribed:when she was with her nother pe fother sen the bes pression to ppli to for infrommation and plen with ho
+0.LMCorrected:when she was with her mother pc other sen the bs expression to apply to for information and len with ho
+
+1.GroundTruth:who is there i can find for her to talk to
+1.Transcribed:who is tere i infin for her toti to
+1.LMCorrected:who is there i bigfin for her tati to
+
+0.GroundTruth:after many fruitless evasions the king
+0.Transcribed:after many frolis evasions the pen
+0.LMCorrected:after many folic evasion the pen
+
+1.GroundTruth:we must quake she could take our globe
+1.Transcribed:we mus quat she could take eter lov
+1.LMCorrected:we must quit she could take ster gov
+
+3.GroundTruth:and i can tell you joyce that i was confounded at the likeness it is an extraordinary likeness
+3.Transcribed:and i contel you joace that i was comfonded af the liktess it is a e xtrord nera liknes
+3.LMCorrected:and i counsel you joyce that i was confounded at the likeness it is a e stroud neda lines
+
+3.GroundTruth:he got himself to the door
+3.Transcribed:he gon himself to the dor
+3.LMCorrected:he got himself to the door
+
+1.GroundTruth:but they were deceived in thinking that the struggle in the channel was over for the winter the deserters at the kentish knock were punished
+1.Transcribed:but they wod deceeved in thinking that dhe stregle in the chanal was over for the winter the diserters ad the cintis noccopoid
+1.LMCorrected:but they whod deceived in thinking that the struggle in the canal was over for the winter the dispersers ad the bindis noccopoid
+
+4.GroundTruth:the terror of his possible counsel for the moment vanished he could never tell him to give himself up
+4.Transcribed:the car of his posible comnse for the momentbemished he coul neverateld him to iv himsele
+4.LMCorrected:the car of his possible counsel for the momentbemished he could neverateld him to iv himself
+SHUFFLING as reached end of data
+########################################################
+Completed Validation Test: WER & LER results
+('Test WER average is   :', 0.7741394215468455)
+('Test LER average is   :', 34.82003610108303)
+('Test normalised LER is:', 0.3984108059331908)
+########################################################
+
+epoca 15:
+
+
+1.GroundTruth:and wouldst thou have that and shall i be thy son
+1.Transcribed:an whats tor hav that and shalid be ty son
+1.LMCorrected:an whats tor have that and shall be thy son
+
+2.GroundTruth:and to morrow i'll tell you about them if you want me to
+2.Transcribed:and to mor wal tell you about thim if you wat beto
+2.LMCorrected:and to jor wal tell you about them if you wat beco
+
+2.GroundTruth:her grand treasurer having gained over some of the eunuchs and other courtiers about her person
+2.Transcribed:ge ran trocuer having ganed ofver some of the ounexs an other cuoryars about her person
+2.LMCorrected:ge ran procter having gained over some of the tunes an other cuoryars about her person
+
+1.GroundTruth:in the morning he found her cold in death
+1.Transcribed:in the mornin he frod her cold in des
+1.LMCorrected:in the morning he from her cold in des
+
+2.GroundTruth:and the cape of good hope plague raged
+2.Transcribed:and the cappe of gootd hop wa ret
+2.LMCorrected:and the cape of good hop aa ren
+
+3.GroundTruth:he got himself to the door
+3.Transcribed:e got hinsef to the don
+3.LMCorrected:e got himself to the don
+
+1.GroundTruth:that is to be truthful yes i have to go and see someone not far from here
+1.Transcribed:thet is to be frofor yes i havee to goat se someon not far fom her
+1.LMCorrected:that is to be rotor yes i have to goat se someone not far from her
+
+1.GroundTruth:could not give his hand to the bride
+1.Transcribed:cod not tof his hand to the brid
+1.LMCorrected:cod not of his hand to the bride
+
+0.GroundTruth:and now you had better keep very quiet and never grumble again the sentiment of these reflexions was very just
+0.Transcribed:and now you had better ca very quid an never gramble again the sentement of this reflections wa very just
+0.LMCorrected:and now you had better ca very quid an never gamble again the sentiment of this reflections was very just
+
+4.GroundTruth:and fatal to a friend it was sure enough and poor henry dropped from his horse
+4.Transcribed:and falel to af frend it was soreno and poor hemre drop from his horse
+4.LMCorrected:and fall to a friend it was soren and poor here drop from his horse
+
+3.GroundTruth:she had evidently gone off with him and that little business was over and he was here stranded and sold
+3.Transcribed:she had avmet we don' off with him and that witta besnos was over and he was  fer stranted in sold
+3.LMCorrected:she had asmat we don off with him and that biota barnos was over and he was fey stranded in sold
+
+4.GroundTruth:she gave him at the same time a cloak made of copper
+4.Transcribed:she gave him at that same time af col made of cofer
+4.LMCorrected:she gave him at that same time aa aol made of cover
+
+2.GroundTruth:at the prospect of losing his great motive ralph lost indeed his one inspiration
+2.Transcribed:at the prospect of lising his great moof rol last indeed his on insperation
+2.LMCorrected:at the prospect of losing his great goof aol last indeed his on inspiration
+SHUFFLING as reached end of data
+
+1.GroundTruth:and something more she had seen that it was a man but she had dropped so quickly that she did not see the big black horse
+1.Transcribed:and somthing war she had seem that it was a man bu she a drop sad quicly that yhe did not see tho bed lacors
+1.LMCorrected:and something war she had seem that it was a man bu she a drop sad quickly that he did not see the bed lagos
+########################################################
+Completed Validation Test: WER & LER results
+('Test WER average is   :', 0.7570679753613878)
+('Test LER average is   :', 33.3942238267148)
+('Test normalised LER is:', 0.38230746708749214)
+########################################################
+('better ler/wer at:', './checkpoints/epoch/LER-WER-best-DS7_2018-06-24_12-28')
+('Saving model at:', './checkpoints/epoch/LER-WER-best-DS7_2018-06-24_12-28/model.json', './checkpoints/epoch/LER-WER-best-DS7_2018-06-24_12-28/model.h5')
+(0.7570679753613878, ' vs ', [0.7900026188614114, 0.7818386066640554, 0.7741394215468455, 0.7715507402658679])
+
+
+
+
+
+
+
+0.GroundTruth:no no my good friend i never make mistakes what i know i know certainly
+0.Transcribed:no no my good frind i never mak we sas whon i know i know sormy
+0.LMCorrected:no no my good friend i never make we mas whod i know i know sorry
+
+3.GroundTruth:he got himself to the door
+3.Transcribed:he got himsel to the dorn
+3.LMCorrected:he got himself to the dorm
+
+2.GroundTruth:that man would lead him to the garden
+2.Transcribed:that man wo ehim to the goven
+2.LMCorrected:that man to him to the oven
+
+1.GroundTruth:and the gloom which overshadowed the house was so recent
+1.Transcribed:and the goon which oveshont of the house wa so resent
+1.LMCorrected:and the gown which overshoot of the house was so recent
+
+0.GroundTruth:could not give his hand to the bride
+0.Transcribed:could not civ is hand to the bried
+0.LMCorrected:could not biv is hand to the bride
+
+0.GroundTruth:upon the iron bars the bolted doors and the shadow which moved behind the other grating
+0.Transcribed:upome i an bors the boltin dors and the shatow which moved ehind te ofther grating
+0.LMCorrected:biome i an bora the bolin doors and the shadow which moved behind the other granting
+
+1.GroundTruth:later i was taken to put on prison clothes refused and resisted strenuously
+1.Transcribed:lader i wis takein to put onprisin clos wefused and resisted streneassten
+1.LMCorrected:laser i was taken to put onprisin ceos refused and resisted streneassten
+
+2.GroundTruth:i have not the pleasure of understanding you said he
+2.Transcribed:i have not the pleurof ondertase you said he
+2.LMCorrected:i have not the pleurof undertake you said he
+
+0.GroundTruth:judith chapter five
+0.Transcribed:judit chapter five
+0.LMCorrected:judi chapter five
+
+2.GroundTruth:for at terracina i was plundered even of my hunting knife
+2.Transcribed:for eteraset i was pliner even of my hanting nife
+2.LMCorrected:for eteraset i was liner even of my hunting knife
+
+4.GroundTruth:chapter fifteen a would be lark
+4.Transcribed:capter titen a would be mock
+4.LMCorrected:chapter toten a would be mock
+
+3.GroundTruth:go out against all the kingdoms of the west
+3.Transcribed:go out agint al the cinoms of the westd
+3.LMCorrected:go out agent al the condoms of the west
+
+1.GroundTruth:he thought his brother was not sober
+1.Transcribed:he tit his dother was not sober
+1.LMCorrected:he tit his mother was not sober
+
+1.GroundTruth:which early ended in a separation
+1.Transcribed:which berily anded in i seperation
+1.LMCorrected:which eerily ended in i separation
+
+2.GroundTruth:but it would not do she saw that i had detected her and she laughed aloud
+2.Transcribed:but wold not do she so that i had dececteter and she las telod
+2.LMCorrected:but would not do she so that i had dececteter and she las meld
+
+0.GroundTruth:he said yes and i m going to do it again
+0.Transcribed:he said yesa i mor to do ia det
+0.LMCorrected:he said yes i jor to do it yet
+
+3.GroundTruth:and the shock the surprise
+3.Transcribed:and the shork the surprice
+3.LMCorrected:and the shock the surprise
+
+0.GroundTruth:or she would die of shame so the king sent for ameer ali
+0.Transcribed:or she would di of fame so the king senfor o mear aly
+0.LMCorrected:or she would die of fame so the king sensor o meir als
+
+2.GroundTruth:in the course of the day i received this note
+2.Transcribed:ind the cors of the day i receve this snot
+2.LMCorrected:in the corn of the day i recieve this snot
+
+0.GroundTruth:and there was a fumbling at the handle but the bolt was out of order
+0.Transcribed:and there was a fombein at the heambl but the bolt  was aat ofvorher
+0.LMCorrected:and there was a holbein at the heal but the bolt was aa ofvorher
+
+3.GroundTruth:a confession made at the last moment extorted when the crime cannot be denied diminishes not the punishment inflicted on the guilty
+3.Transcribed:a confession mad a the last momet exported when the crime pannop be dewid the minisies not the punionnin anflucted on the gilty
+3.LMCorrected:a confession mad a the last mamet exported when the crime cannot be deli the minimizes not the punionnin inflicted on the guilty
+
+4.GroundTruth:for that very evening but we are bound to say to the credit of our hero
+4.Transcribed:for that very evning but we orboun to sa to the croeo wi e ron
+4.LMCorrected:for that very evening but we orion to say to the ceo wi e ron
+
+2.GroundTruth:full of speculation and a deep restrained excitement
+2.Transcribed:fol of steculation an a dep westraind ixcanment
+2.LMCorrected:aol of speculation an a deep restrained ixcanment
+
+0.GroundTruth:to discover myself to the cottagers
+0.Transcribed:to discover myself to the coteters
+0.LMCorrected:to discover myself to the catheters
+
+1.GroundTruth:the men of the revolution are so great that they have the prestige of the ages like cato
+1.Transcribed:no men of the rervilution ar so gret that they havd the frestihe ofveatest bek ce tor
+1.LMCorrected:no men of the revolution are so great that they have the prestige ofveatest belk ce tor
+
+0.GroundTruth:perhaps we have deviated no i think not
+0.Transcribed:corapt we ovdeeve no i think not
+0.LMCorrected:corak we ovdeeve no i think not
+
+3.GroundTruth:led back to the starting point
+3.Transcribed:led back to the stading pot
+3.LMCorrected:led back to the standing pot
+
+2.GroundTruth:and at the head of a great body of his followers
+2.Transcribed:and at ther hed of e great body of hi foleers
+2.LMCorrected:and at the hed of e great body of hi folders
+
+3.GroundTruth:with billows of dust and sand
+3.Transcribed:with bellos of dust an sand
+3.LMCorrected:with bellos of dust an sand
+
+3.GroundTruth:on all but the people themselves
+3.Transcribed:on ald at the people themselvs
+3.LMCorrected:on and at the people themselves
+
+0.GroundTruth:take my advice sacrifice no other calf but that wife i replied i will not sacrifice him i will spare him and pray do not you oppose me
+0.Transcribed:dicmy vice sacrer fice no o ther cat wat that wiv i refliede ie wil not sacefice him i wil sper him and pra do not you appos me
+0.LMCorrected:dicey vice sacred fire no o the cat wat that iv i replied i will not sacrifice him i will ster him and pray do not you apps me
+
+2.GroundTruth:he came to the great mountains of ange
+2.Transcribed:he camet the great nottans of an
+2.LMCorrected:he came the great notions of an
+
+3.GroundTruth:which he closed behind the child and bolted
+3.Transcribed:which eclolse be in the chil and boted
+3.LMCorrected:which close be in the child and bolted
+
+0.GroundTruth:but they walked in the middle of the great street neither on one side
+0.Transcribed:but they war in the mittle of the greatstret neter on one side
+0.LMCorrected:but they war in the little of the greatstret enter on one side
+
+3.GroundTruth:when they saw the multitude of them prostrated themselves upon the ground
+3.Transcribed:when thay sa the mottertu thef them pastraet themselvs oppon the gron
+3.LMCorrected:when they saw the mottertu the them pastraet themselves upon the aron
+
+4.GroundTruth:it makes life insupportable it must be a matter of conjecture it occasions suspicion and discontent
+4.Transcribed:it meslif an suporabe it mus be a mater of anjecter it irpation suspition and discentent
+4.LMCorrected:it massif an suporabe it must be a mater of injected it creation suspicion and discontent
+SHUFFLING as reached end of data
+########################################################
+Completed Validation Test: WER & LER results
+('Test WER average is   :', 0.7781288251003293)
+('Test LER average is   :', 35.238267148014444)
+('Test normalised LER is:', 0.4039495368828021)
+########################################################
+(0.7781288251003293, ' vs ', [0.7570679753613878, 0.7583377330081355, 0.7732235184066488, 0.7601695620970146])
+EARLY STOPPING
+('Mean WER   :', [0.9931272319579401, 0.9464356384661141, 0.924189070782307, 0.8720493371016758, 0.8525219665551723, 0.8329582337321073, 0.826875064080498, 0.8116189435020164, 0.7860264266578725, 0.7900026188614114, 0.7818386066640554, 0.7741394215468455, 0.7715507402658679, 0.7570679753613878, 0.7583377330081355, 0.7732235184066488, 0.7601695620970146, 0.7781288251003293])
+('Mean LER   :', [53.662274368231046, 47.76714801444043, 43.2173285198556, 41.36624548736462, 40.30812274368231, 38.23628158844765, 37.06732851985559, 36.409386281588446, 35.43971119133574, 35.2231046931408, 34.707581227436826, 34.82003610108303, 34.0985559566787, 33.3942238267148, 33.78339350180505, 35.11768953068592, 33.9716606498195, 35.238267148014444])
+('NormMeanLER:', [0.6119550660990511, 0.5447869128594562, 0.4934375488804971, 0.4725521303804687, 0.46051392865937485, 0.43778160568193314, 0.42411645312541757, 0.417249800926868, 0.4056408262207264, 0.40374394508847394, 0.39810841694343935, 0.3984108059331908, 0.3912491768273032, 0.38230746708749214, 0.38707135958445, 0.4017974673921121, 0.38947496943688503, 0.4039495368828021])
+0.GroundTruth:no no my good friend i never make mistakes what i know i know certainly
+0.Transcribed:no no my good frind i never mak we sas whon i know i know sormy
+0.LMCorrected:no no my good friend i never make we mas whod i know i know sorry
+
+3.GroundTruth:he got himself to the door
+3.Transcribed:he got himsel to the dorn
+3.LMCorrected:he got himself to the dorm
+
+2.GroundTruth:that man would lead him to the garden
+2.Transcribed:that man wo ehim to the goven
+2.LMCorrected:that man to him to the oven
+
+1.GroundTruth:and the gloom which overshadowed the house was so recent
+1.Transcribed:and the goon which oveshont of the house wa so resent
+1.LMCorrected:and the gown which overshoot of the house was so recent
+
+0.GroundTruth:could not give his hand to the bride
+0.Transcribed:could not civ is hand to the bried
+0.LMCorrected:could not biv is hand to the bride
+
+0.GroundTruth:upon the iron bars the bolted doors and the shadow which moved behind the other grating
+0.Transcribed:upome i an bors the boltin dors and the shatow which moved ehind te ofther grating
+0.LMCorrected:biome i an bora the bolin doors and the shadow which moved behind the other granting
+
+1.GroundTruth:later i was taken to put on prison clothes refused and resisted strenuously
+1.Transcribed:lader i wis takein to put onprisin clos wefused and resisted streneassten
+1.LMCorrected:laser i was taken to put onprisin ceos refused and resisted streneassten
+
+2.GroundTruth:i have not the pleasure of understanding you said he
+2.Transcribed:i have not the pleurof ondertase you said he
+2.LMCorrected:i have not the pleurof undertake you said he
+
+0.GroundTruth:judith chapter five
+0.Transcribed:judit chapter five
+0.LMCorrected:judi chapter five
+
+2.GroundTruth:for at terracina i was plundered even of my hunting knife
+2.Transcribed:for eteraset i was pliner even of my hanting nife
+2.LMCorrected:for eteraset i was liner even of my hunting knife
+
+4.GroundTruth:chapter fifteen a would be lark
+4.Transcribed:capter titen a would be mock
+4.LMCorrected:chapter toten a would be mock
+
+3.GroundTruth:go out against all the kingdoms of the west
+3.Transcribed:go out agint al the cinoms of the westd
+3.LMCorrected:go out agent al the condoms of the west
+
+1.GroundTruth:he thought his brother was not sober
+1.Transcribed:he tit his dother was not sober
+1.LMCorrected:he tit his mother was not sober
+
+1.GroundTruth:which early ended in a separation
+1.Transcribed:which berily anded in i seperation
+1.LMCorrected:which eerily ended in i separation
+
+2.GroundTruth:but it would not do she saw that i had detected her and she laughed aloud
+2.Transcribed:but wold not do she so that i had dececteter and she las telod
+2.LMCorrected:but would not do she so that i had dececteter and she las meld
+
+0.GroundTruth:he said yes and i m going to do it again
+0.Transcribed:he said yesa i mor to do ia det
+0.LMCorrected:he said yes i jor to do it yet
+
+3.GroundTruth:and the shock the surprise
+3.Transcribed:and the shork the surprice
+3.LMCorrected:and the shock the surprise
+
+0.GroundTruth:or she would die of shame so the king sent for ameer ali
+0.Transcribed:or she would di of fame so the king senfor o mear aly
+0.LMCorrected:or she would die of fame so the king sensor o meir als
+
+2.GroundTruth:in the course of the day i received this note
+2.Transcribed:ind the cors of the day i receve this snot
+2.LMCorrected:in the corn of the day i recieve this snot
+
+0.GroundTruth:and there was a fumbling at the handle but the bolt was out of order
+0.Transcribed:and there was a fombein at the heambl but the bolt  was aat ofvorher
+0.LMCorrected:and there was a holbein at the heal but the bolt was aa ofvorher
+
+3.GroundTruth:a confession made at the last moment extorted when the crime cannot be denied diminishes not the punishment inflicted on the guilty
+3.Transcribed:a confession mad a the last momet exported when the crime pannop be dewid the minisies not the punionnin anflucted on the gilty
+3.LMCorrected:a confession mad a the last mamet exported when the crime cannot be deli the minimizes not the punionnin inflicted on the guilty
+
+4.GroundTruth:for that very evening but we are bound to say to the credit of our hero
+4.Transcribed:for that very evning but we orboun to sa to the croeo wi e ron
+4.LMCorrected:for that very evening but we orion to say to the ceo wi e ron
+
+2.GroundTruth:full of speculation and a deep restrained excitement
+2.Transcribed:fol of steculation an a dep westraind ixcanment
+2.LMCorrected:aol of speculation an a deep restrained ixcanment
+
+0.GroundTruth:to discover myself to the cottagers
+0.Transcribed:to discover myself to the coteters
+0.LMCorrected:to discover myself to the catheters
+
+1.GroundTruth:the men of the revolution are so great that they have the prestige of the ages like cato
+1.Transcribed:no men of the rervilution ar so gret that they havd the frestihe ofveatest bek ce tor
+1.LMCorrected:no men of the revolution are so great that they have the prestige ofveatest belk ce tor
+
+0.GroundTruth:perhaps we have deviated no i think not
+0.Transcribed:corapt we ovdeeve no i think not
+0.LMCorrected:corak we ovdeeve no i think not
+
+3.GroundTruth:led back to the starting point
+3.Transcribed:led back to the stading pot
+3.LMCorrected:led back to the standing pot
+
+2.GroundTruth:and at the head of a great body of his followers
+2.Transcribed:and at ther hed of e great body of hi foleers
+2.LMCorrected:and at the hed of e great body of hi folders
+
+3.GroundTruth:with billows of dust and sand
+3.Transcribed:with bellos of dust an sand
+3.LMCorrected:with bellos of dust an sand
+
+3.GroundTruth:on all but the people themselves
+3.Transcribed:on ald at the people themselvs
+3.LMCorrected:on and at the people themselves
+
+0.GroundTruth:take my advice sacrifice no other calf but that wife i replied i will not sacrifice him i will spare him and pray do not you oppose me
+0.Transcribed:dicmy vice sacrer fice no o ther cat wat that wiv i refliede ie wil not sacefice him i wil sper him and pra do not you appos me
+0.LMCorrected:dicey vice sacred fire no o the cat wat that iv i replied i will not sacrifice him i will ster him and pray do not you apps me
+
+2.GroundTruth:he came to the great mountains of ange
+2.Transcribed:he camet the great nottans of an
+2.LMCorrected:he came the great notions of an
+
+3.GroundTruth:which he closed behind the child and bolted
+3.Transcribed:which eclolse be in the chil and boted
+3.LMCorrected:which close be in the child and bolted
+
+0.GroundTruth:but they walked in the middle of the great street neither on one side
+0.Transcribed:but they war in the mittle of the greatstret neter on one side
+0.LMCorrected:but they war in the little of the greatstret enter on one side
+
+3.GroundTruth:when they saw the multitude of them prostrated themselves upon the ground
+3.Transcribed:when thay sa the mottertu thef them pastraet themselvs oppon the gron
+3.LMCorrected:when they saw the mottertu the them pastraet themselves upon the aron
+
+4.GroundTruth:it makes life insupportable it must be a matter of conjecture it occasions suspicion and discontent
+4.Transcribed:it meslif an suporabe it mus be a mater of anjecter it irpation suspition and discentent
+4.LMCorrected:it massif an suporabe it must be a mater of injected it creation suspicion and discontent
+SHUFFLING as reached end of data
+########################################################
+Completed Validation Test: WER & LER results
+('Test WER average is   :', 0.7781288251003293)
+('Test LER average is   :', 35.238267148014444)
+('Test normalised LER is:', 0.4039495368828021)
+########################################################
+(0.7781288251003293, ' vs ', [0.7570679753613878, 0.7583377330081355, 0.7732235184066488, 0.7601695620970146])
+EARLY STOPPING
+('Mean WER   :', [0.9931272319579401, 0.9464356384661141, 0.924189070782307, 0.8720493371016758, 0.8525219665551723, 0.8329582337321073, 0.826875064080498, 0.8116189435020164, 0.7860264266578725, 0.7900026188614114, 0.7818386066640554, 0.7741394215468455, 0.7715507402658679, 0.7570679753613878, 0.7583377330081355, 0.7732235184066488, 0.7601695620970146, 0.7781288251003293])
+('Mean LER   :', [53.662274368231046, 47.76714801444043, 43.2173285198556, 41.36624548736462, 40.30812274368231, 38.23628158844765, 37.06732851985559, 36.409386281588446, 35.43971119133574, 35.2231046931408, 34.707581227436826, 34.82003610108303, 34.0985559566787, 33.3942238267148, 33.78339350180505, 35.11768953068592, 33.9716606498195, 35.238267148014444])
+('NormMeanLER:', [0.6119550660990511, 0.5447869128594562, 0.4934375488804971, 0.4725521303804687, 0.46051392865937485, 0.43778160568193314, 0.42411645312541757, 0.417249800926868, 0.4056408262207264, 0.40374394508847394, 0.39810841694343935, 0.3984108059331908, 0.3912491768273032, 0.38230746708749214, 0.38707135958445, 0.4017974673921121, 0.38947496943688503, 0.4039495368828021])
+0.GroundTruth:no no my good friend i never make mistakes what i know i know certainly
+0.Transcribed:no no my good frind i never mak we sas whon i know i know sormy
+0.LMCorrected:no no my good friend i never make we mas whod i know i know sorry
+
+3.GroundTruth:he got himself to the door
+3.Transcribed:he got himsel to the dorn
+3.LMCorrected:he got himself to the dorm
+
+2.GroundTruth:that man would lead him to the garden
+2.Transcribed:that man wo ehim to the goven
+2.LMCorrected:that man to him to the oven
+
+1.GroundTruth:and the gloom which overshadowed the house was so recent
+1.Transcribed:and the goon which oveshont of the house wa so resent
+1.LMCorrected:and the gown which overshoot of the house was so recent
+
+0.GroundTruth:could not give his hand to the bride
+0.Transcribed:could not civ is hand to the bried
+0.LMCorrected:could not biv is hand to the bride
+
+0.GroundTruth:upon the iron bars the bolted doors and the shadow which moved behind the other grating
+0.Transcribed:upome i an bors the boltin dors and the shatow which moved ehind te ofther grating
+0.LMCorrected:biome i an bora the bolin doors and the shadow which moved behind the other granting
+
+1.GroundTruth:later i was taken to put on prison clothes refused and resisted strenuously
+1.Transcribed:lader i wis takein to put onprisin clos wefused and resisted streneassten
+1.LMCorrected:laser i was taken to put onprisin ceos refused and resisted streneassten
+
+2.GroundTruth:i have not the pleasure of understanding you said he
+2.Transcribed:i have not the pleurof ondertase you said he
+2.LMCorrected:i have not the pleurof undertake you said he
+
+0.GroundTruth:judith chapter five
+0.Transcribed:judit chapter five
+0.LMCorrected:judi chapter five
+
+2.GroundTruth:for at terracina i was plundered even of my hunting knife
+2.Transcribed:for eteraset i was pliner even of my hanting nife
+2.LMCorrected:for eteraset i was liner even of my hunting knife
+
+4.GroundTruth:chapter fifteen a would be lark
+4.Transcribed:capter titen a would be mock
+4.LMCorrected:chapter toten a would be mock
+
+3.GroundTruth:go out against all the kingdoms of the west
+3.Transcribed:go out agint al the cinoms of the westd
+3.LMCorrected:go out agent al the condoms of the west
+
+1.GroundTruth:he thought his brother was not sober
+1.Transcribed:he tit his dother was not sober
+1.LMCorrected:he tit his mother was not sober
+
+1.GroundTruth:which early ended in a separation
+1.Transcribed:which berily anded in i seperation
+1.LMCorrected:which eerily ended in i separation
+
+2.GroundTruth:but it would not do she saw that i had detected her and she laughed aloud
+2.Transcribed:but wold not do she so that i had dececteter and she las telod
+2.LMCorrected:but would not do she so that i had dececteter and she las meld
+
+0.GroundTruth:he said yes and i m going to do it again
+0.Transcribed:he said yesa i mor to do ia det
+0.LMCorrected:he said yes i jor to do it yet
+
+3.GroundTruth:and the shock the surprise
+3.Transcribed:and the shork the surprice
+3.LMCorrected:and the shock the surprise
+
+0.GroundTruth:or she would die of shame so the king sent for ameer ali
+0.Transcribed:or she would di of fame so the king senfor o mear aly
+0.LMCorrected:or she would die of fame so the king sensor o meir als
+
+2.GroundTruth:in the course of the day i received this note
+2.Transcribed:ind the cors of the day i receve this snot
+2.LMCorrected:in the corn of the day i recieve this snot
+
+0.GroundTruth:and there was a fumbling at the handle but the bolt was out of order
+0.Transcribed:and there was a fombein at the heambl but the bolt  was aat ofvorher
+0.LMCorrected:and there was a holbein at the heal but the bolt was aa ofvorher
+
+3.GroundTruth:a confession made at the last moment extorted when the crime cannot be denied diminishes not the punishment inflicted on the guilty
+3.Transcribed:a confession mad a the last momet exported when the crime pannop be dewid the minisies not the punionnin anflucted on the gilty
+3.LMCorrected:a confession mad a the last mamet exported when the crime cannot be deli the minimizes not the punionnin inflicted on the guilty
+
+4.GroundTruth:for that very evening but we are bound to say to the credit of our hero
+4.Transcribed:for that very evning but we orboun to sa to the croeo wi e ron
+4.LMCorrected:for that very evening but we orion to say to the ceo wi e ron
+
+2.GroundTruth:full of speculation and a deep restrained excitement
+2.Transcribed:fol of steculation an a dep westraind ixcanment
+2.LMCorrected:aol of speculation an a deep restrained ixcanment
+
+0.GroundTruth:to discover myself to the cottagers
+0.Transcribed:to discover myself to the coteters
+0.LMCorrected:to discover myself to the catheters
+
+1.GroundTruth:the men of the revolution are so great that they have the prestige of the ages like cato
+1.Transcribed:no men of the rervilution ar so gret that they havd the frestihe ofveatest bek ce tor
+1.LMCorrected:no men of the revolution are so great that they have the prestige ofveatest belk ce tor
+
+0.GroundTruth:perhaps we have deviated no i think not
+0.Transcribed:corapt we ovdeeve no i think not
+0.LMCorrected:corak we ovdeeve no i think not
+
+3.GroundTruth:led back to the starting point
+3.Transcribed:led back to the stading pot
+3.LMCorrected:led back to the standing pot
+
+2.GroundTruth:and at the head of a great body of his followers
+2.Transcribed:and at ther hed of e great body of hi foleers
+2.LMCorrected:and at the hed of e great body of hi folders
+
+3.GroundTruth:with billows of dust and sand
+3.Transcribed:with bellos of dust an sand
+3.LMCorrected:with bellos of dust an sand
+
+3.GroundTruth:on all but the people themselves
+3.Transcribed:on ald at the people themselvs
+3.LMCorrected:on and at the people themselves
+
+0.GroundTruth:take my advice sacrifice no other calf but that wife i replied i will not sacrifice him i will spare him and pray do not you oppose me
+0.Transcribed:dicmy vice sacrer fice no o ther cat wat that wiv i refliede ie wil not sacefice him i wil sper him and pra do not you appos me
+0.LMCorrected:dicey vice sacred fire no o the cat wat that iv i replied i will not sacrifice him i will ster him and pray do not you apps me
+
+2.GroundTruth:he came to the great mountains of ange
+2.Transcribed:he camet the great nottans of an
+2.LMCorrected:he came the great notions of an
+
+3.GroundTruth:which he closed behind the child and bolted
+3.Transcribed:which eclolse be in the chil and boted
+3.LMCorrected:which close be in the child and bolted
+
+0.GroundTruth:but they walked in the middle of the great street neither on one side
+0.Transcribed:but they war in the mittle of the greatstret neter on one side
+0.LMCorrected:but they war in the little of the greatstret enter on one side
+
+3.GroundTruth:when they saw the multitude of them prostrated themselves upon the ground
+3.Transcribed:when thay sa the mottertu thef them pastraet themselvs oppon the gron
+3.LMCorrected:when they saw the mottertu the them pastraet themselves upon the aron
+
+4.GroundTruth:it makes life insupportable it must be a matter of conjecture it occasions suspicion and discontent
+4.Transcribed:it meslif an suporabe it mus be a mater of anjecter it irpation suspition and discentent
+4.LMCorrected:it massif an suporabe it must be a mater of injected it creation suspicion and discontent
+SHUFFLING as reached end of data
+########################################################
+Completed Validation Test: WER & LER results
+('Test WER average is   :', 0.7781288251003293)
+('Test LER average is   :', 35.238267148014444)
+('Test normalised LER is:', 0.4039495368828021)
+########################################################
+(0.7781288251003293, ' vs ', [0.7570679753613878, 0.7583377330081355, 0.7732235184066488, 0.7601695620970146])
+EARLY STOPPING
+('Mean WER   :', [0.9931272319579401, 0.9464356384661141, 0.924189070782307, 0.8720493371016758, 0.8525219665551723, 0.8329582337321073, 0.826875064080498, 0.8116189435020164, 0.7860264266578725, 0.7900026188614114, 0.7818386066640554, 0.7741394215468455, 0.7715507402658679, 0.7570679753613878, 0.7583377330081355, 0.7732235184066488, 0.7601695620970146, 0.7781288251003293])
+('Mean LER   :', [53.662274368231046, 47.76714801444043, 43.2173285198556, 41.36624548736462, 40.30812274368231, 38.23628158844765, 37.06732851985559, 36.409386281588446, 35.43971119133574, 35.2231046931408, 34.707581227436826, 34.82003610108303, 34.0985559566787, 33.3942238267148, 33.78339350180505, 35.11768953068592, 33.9716606498195, 35.238267148014444])
+('NormMeanLER:', [0.6119550660990511, 0.5447869128594562, 0.4934375488804971, 0.4725521303804687, 0.46051392865937485, 0.43778160568193314, 0.42411645312541757, 0.417249800926868, 0.4056408262207264, 0.40374394508847394, 0.39810841694343935, 0.3984108059331908, 0.3912491768273032, 0.38230746708749214, 0.38707135958445, 0.4017974673921121, 0.38947496943688503, 0.4039495368828021])
+0.GroundTruth:no no my good friend i never make mistakes what i know i know certainly
+0.Transcribed:no no my good frind i never mak we sas whon i know i know sormy
+0.LMCorrected:no no my good friend i never make we mas whod i know i know sorry
+
+3.GroundTruth:he got himself to the door
+3.Transcribed:he got himsel to the dorn
+3.LMCorrected:he got himself to the dorm
+
+2.GroundTruth:that man would lead him to the garden
+2.Transcribed:that man wo ehim to the goven
+2.LMCorrected:that man to him to the oven
+
+1.GroundTruth:and the gloom which overshadowed the house was so recent
+1.Transcribed:and the goon which oveshont of the house wa so resent
+1.LMCorrected:and the gown which overshoot of the house was so recent
+
+0.GroundTruth:could not give his hand to the bride
+0.Transcribed:could not civ is hand to the bried
+0.LMCorrected:could not biv is hand to the bride
+
+0.GroundTruth:upon the iron bars the bolted doors and the shadow which moved behind the other grating
+0.Transcribed:upome i an bors the boltin dors and the shatow which moved ehind te ofther grating
+0.LMCorrected:biome i an bora the bolin doors and the shadow which moved behind the other granting
+
+1.GroundTruth:later i was taken to put on prison clothes refused and resisted strenuously
+1.Transcribed:lader i wis takein to put onprisin clos wefused and resisted streneassten
+1.LMCorrected:laser i was taken to put onprisin ceos refused and resisted streneassten
+
+2.GroundTruth:i have not the pleasure of understanding you said he
+2.Transcribed:i have not the pleurof ondertase you said he
+2.LMCorrected:i have not the pleurof undertake you said he
+
+0.GroundTruth:judith chapter five
+0.Transcribed:judit chapter five
+0.LMCorrected:judi chapter five
+
+2.GroundTruth:for at terracina i was plundered even of my hunting knife
+2.Transcribed:for eteraset i was pliner even of my hanting nife
+2.LMCorrected:for eteraset i was liner even of my hunting knife
+
+4.GroundTruth:chapter fifteen a would be lark
+4.Transcribed:capter titen a would be mock
+4.LMCorrected:chapter toten a would be mock
+
+3.GroundTruth:go out against all the kingdoms of the west
+3.Transcribed:go out agint al the cinoms of the westd
+3.LMCorrected:go out agent al the condoms of the west
+
+1.GroundTruth:he thought his brother was not sober
+1.Transcribed:he tit his dother was not sober
+1.LMCorrected:he tit his mother was not sober
+
+1.GroundTruth:which early ended in a separation
+1.Transcribed:which berily anded in i seperation
+1.LMCorrected:which eerily ended in i separation
+
+2.GroundTruth:but it would not do she saw that i had detected her and she laughed aloud
+2.Transcribed:but wold not do she so that i had dececteter and she las telod
+2.LMCorrected:but would not do she so that i had dececteter and she las meld
+
+0.GroundTruth:he said yes and i m going to do it again
+0.Transcribed:he said yesa i mor to do ia det
+0.LMCorrected:he said yes i jor to do it yet
+
+3.GroundTruth:and the shock the surprise
+3.Transcribed:and the shork the surprice
+3.LMCorrected:and the shock the surprise
+
+0.GroundTruth:or she would die of shame so the king sent for ameer ali
+0.Transcribed:or she would di of fame so the king senfor o mear aly
+0.LMCorrected:or she would die of fame so the king sensor o meir als
+
+2.GroundTruth:in the course of the day i received this note
+2.Transcribed:ind the cors of the day i receve this snot
+2.LMCorrected:in the corn of the day i recieve this snot
+
+0.GroundTruth:and there was a fumbling at the handle but the bolt was out of order
+0.Transcribed:and there was a fombein at the heambl but the bolt  was aat ofvorher
+0.LMCorrected:and there was a holbein at the heal but the bolt was aa ofvorher
+
+3.GroundTruth:a confession made at the last moment extorted when the crime cannot be denied diminishes not the punishment inflicted on the guilty
+3.Transcribed:a confession mad a the last momet exported when the crime pannop be dewid the minisies not the punionnin anflucted on the gilty
+3.LMCorrected:a confession mad a the last mamet exported when the crime cannot be deli the minimizes not the punionnin inflicted on the guilty
+
+4.GroundTruth:for that very evening but we are bound to say to the credit of our hero
+4.Transcribed:for that very evning but we orboun to sa to the croeo wi e ron
+4.LMCorrected:for that very evening but we orion to say to the ceo wi e ron
+
+2.GroundTruth:full of speculation and a deep restrained excitement
+2.Transcribed:fol of steculation an a dep westraind ixcanment
+2.LMCorrected:aol of speculation an a deep restrained ixcanment
+
+0.GroundTruth:to discover myself to the cottagers
+0.Transcribed:to discover myself to the coteters
+0.LMCorrected:to discover myself to the catheters
+
+1.GroundTruth:the men of the revolution are so great that they have the prestige of the ages like cato
+1.Transcribed:no men of the rervilution ar so gret that they havd the frestihe ofveatest bek ce tor
+1.LMCorrected:no men of the revolution are so great that they have the prestige ofveatest belk ce tor
+
+0.GroundTruth:perhaps we have deviated no i think not
+0.Transcribed:corapt we ovdeeve no i think not
+0.LMCorrected:corak we ovdeeve no i think not
+
+3.GroundTruth:led back to the starting point
+3.Transcribed:led back to the stading pot
+3.LMCorrected:led back to the standing pot
+
+2.GroundTruth:and at the head of a great body of his followers
+2.Transcribed:and at ther hed of e great body of hi foleers
+2.LMCorrected:and at the hed of e great body of hi folders
+
+3.GroundTruth:with billows of dust and sand
+3.Transcribed:with bellos of dust an sand
+3.LMCorrected:with bellos of dust an sand
+
+3.GroundTruth:on all but the people themselves
+3.Transcribed:on ald at the people themselvs
+3.LMCorrected:on and at the people themselves
+
+0.GroundTruth:take my advice sacrifice no other calf but that wife i replied i will not sacrifice him i will spare him and pray do not you oppose me
+0.Transcribed:dicmy vice sacrer fice no o ther cat wat that wiv i refliede ie wil not sacefice him i wil sper him and pra do not you appos me
+0.LMCorrected:dicey vice sacred fire no o the cat wat that iv i replied i will not sacrifice him i will ster him and pray do not you apps me
+
+2.GroundTruth:he came to the great mountains of ange
+2.Transcribed:he camet the great nottans of an
+2.LMCorrected:he came the great notions of an
+
+3.GroundTruth:which he closed behind the child and bolted
+3.Transcribed:which eclolse be in the chil and boted
+3.LMCorrected:which close be in the child and bolted
+
+0.GroundTruth:but they walked in the middle of the great street neither on one side
+0.Transcribed:but they war in the mittle of the greatstret neter on one side
+0.LMCorrected:but they war in the little of the greatstret enter on one side
+
+3.GroundTruth:when they saw the multitude of them prostrated themselves upon the ground
+3.Transcribed:when thay sa the mottertu thef them pastraet themselvs oppon the gron
+3.LMCorrected:when they saw the mottertu the them pastraet themselves upon the aron
+
+4.GroundTruth:it makes life insupportable it must be a matter of conjecture it occasions suspicion and discontent
+4.Transcribed:it meslif an suporabe it mus be a mater of anjecter it irpation suspition and discentent
+4.LMCorrected:it massif an suporabe it must be a mater of injected it creation suspicion and discontent
+SHUFFLING as reached end of data
+Epoch 18/20
+
+
+########################################################
+Completed Validation Test: WER & LER results
+('Test WER average is   :', 0.7781288251003293)
+('Test LER average is   :', 35.238267148014444)
+('Test normalised LER is:', 0.4039495368828021)
+########################################################
+(0.7781288251003293, ' vs ', [0.7570679753613878, 0.7583377330081355, 0.7732235184066488, 0.7601695620970146])
+EARLY STOPPING
+('Mean WER   :', [0.9931272319579401, 0.9464356384661141, 0.924189070782307, 0.8720493371016758, 0.8525219665551723, 0.8329582337321073, 0.826875064080498, 0.8116189435020164, 0.7860264266578725, 0.7900026188614114, 0.7818386066640554, 0.7741394215468455, 0.7715507402658679, 0.7570679753613878, 0.7583377330081355, 0.7732235184066488, 0.7601695620970146, 0.7781288251003293])
+('Mean LER   :', [53.662274368231046, 47.76714801444043, 43.2173285198556, 41.36624548736462, 40.30812274368231, 38.23628158844765, 37.06732851985559, 36.409386281588446, 35.43971119133574, 35.2231046931408, 34.707581227436826, 34.82003610108303, 34.0985559566787, 33.3942238267148, 33.78339350180505, 35.11768953068592, 33.9716606498195, 35.238267148014444])
+('NormMeanLER:', [0.6119550660990511, 0.5447869128594562, 0.4934375488804971, 0.4725521303804687, 0.46051392865937485, 0.43778160568193314, 0.42411645312541757, 0.417249800926868, 0.4056408262207264, 0.40374394508847394, 0.39810841694343935, 0.3984108059331908, 0.3912491768273032, 0.38230746708749214, 0.38707135958445, 0.4017974673921121, 0.38947496943688503, 0.4039495368828021])
+
+
+
+comando:python2 run-train.py  --train_files datasets/librivox-train-other-500.csv  --model_arch 7  --valid_files datasets/librivox-train-clean-100.csv --valid_steps 100 --batchsize 5 --opt adam --learning_rate 0.001
+
+
+18 epocas: inicio: dia: 24-06-2018 hora: 12:28 
+termino: dia:  13-07-2018 hora:  02:01
+
+18 dias 13 horas e 29 minutos
+
+
+
+correto tensorboard:
+ 17 dias 22 horas 41 min 18 seg
