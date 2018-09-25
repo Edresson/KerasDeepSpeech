@@ -13,7 +13,7 @@ lm/timit-lm.klm
 kDS.sh
 kDS-LOCAL.sh
 
-data/*
+#data/*
 datasets/*
 !enron*
 !e00*

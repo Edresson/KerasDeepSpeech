@@ -1,0 +1,467 @@
+python2 run-train.py  --train_files datasets/train_common_voice.csv  --model_arch 8  --valid_files datasets/librivox-train-clean-100.csv --valid_steps 10 --batchsize 2 --opt adam --learning_rate 0.0001  --loadcheckpoint checkpoints/results/model8_DS8_2018-08-25_13-16
+/home/edresson/anaconda3/envs/deepspeech/lib/python2.7/site-packages/h5py/__init__.py:36: FutureWarning: Conversion of the second argument of issubdtype from `float` to `np.floating` is deprecated. In future, it will be treated as `np.float64 == np.dtype(float).type`.
+  from ._conv import register_converters as _register_converters
+Using TensorFlow backend.
+found and restoring...
+found and restoring...
+found and restoring...
+found and restoring...
+found and restoring...
+found and restoring...
+found and restoring...
+found and restoring...
+found and restoring...
+found and restoring...
+found and restoring...
+found and restoring...
+found and restoring...
+found and restoring...
+Getting args
+Namespace(batchsize=2, epochs=20, fc_size=512, learning_rate=0.0001, loadcheckpointpath='checkpoints/results/model8_DS8_2018-08-25_13-16', memcheck=False, model_arch=8, name='DS8_2018-08-28_08-35', opt='adam', rnn_size=512, sortagrad=True, tensorboard=True, train_files='datasets/train_common_voice.csv', train_steps=0, valid_files='datasets/librivox-train-clean-100.csv', valid_steps=10)
+Getting data from arguments
+('Reading csv:', 'datasets/train_common_voice.csv')
+Finished reading in data
+removing any sentences that are too big- tweetsize
+('Total number of files:', 195776)
+('Total number of files (after reduction):', 195762)
+('max_intseq_length:', 133)
+('numclasses:', 29)
+('max_trans_charlength:', 133)
+('Words:', 1850717)
+('Vocab:', 7994)
+('Reading csv:', 'datasets/librivox-train-clean-100.csv')
+Finished reading in data
+removing any sentences that are too big- tweetsize
+('Total number of files:', 28539)
+('Total number of files (after reduction):', 5543)
+('max_intseq_length:', 140)
+('numclasses:', 29)
+('max_trans_charlength:', 140)
+('Words:', 92457)
+('Vocab:', 11794)
+Creating data batch generators
+Loading model
+WARNING:tensorflow:From /home/edresson/anaconda3/envs/deepspeech/lib/python2.7/site-packages/keras/backend/tensorflow_backend.py:1192: calling reduce_sum (from tensorflow.python.ops.math_ops) with keep_dims is deprecated and will be removed in a future version.
+Instructions for updating:
+keep_dims is deprecated, use keepdims instead
+____________________________________________________________________________________________________
+Layer (type)                     Output Shape          Param #     Connected to                     
+====================================================================================================
+the_input (InputLayer)           (None, None, 26)      0                                            
+____________________________________________________________________________________________________
+gaussian_noise_1 (GaussianNoise) (None, None, 26)      0           the_input[0][0]                  
+____________________________________________________________________________________________________
+qrnn__bidirectional_1 (QRNN_Bidi (None, None, 512)     81408       gaussian_noise_1[0][0]           
+____________________________________________________________________________________________________
+qrnn__bidirectional_2 (QRNN_Bidi (None, None, 512)     1574400     qrnn__bidirectional_1[0][0]      
+____________________________________________________________________________________________________
+qrnn__bidirectional_3 (QRNN_Bidi (None, None, 512)     1574400     qrnn__bidirectional_2[0][0]      
+____________________________________________________________________________________________________
+qrnn__bidirectional_4 (QRNN_Bidi (None, None, 512)     1574400     qrnn__bidirectional_3[0][0]      
+____________________________________________________________________________________________________
+qrnn__bidirectional_5 (QRNN_Bidi (None, None, 512)     1574400     qrnn__bidirectional_4[0][0]      
+____________________________________________________________________________________________________
+time_distributed_1 (TimeDistribu (None, None, 29)      14877       qrnn__bidirectional_5[0][0]      
+____________________________________________________________________________________________________
+the_labels (InputLayer)          (None, None)          0                                            
+____________________________________________________________________________________________________
+input_length (InputLayer)        (None, 1)             0                                            
+____________________________________________________________________________________________________
+label_length (InputLayer)        (None, 1)             0                                            
+____________________________________________________________________________________________________
+ctc (Lambda)                     (None, 1)             0           time_distributed_1[0][0]         
+                                                                   the_labels[0][0]                 
+                                                                   input_length[0][0]               
+                                                                   label_length[0][0]               
+====================================================================================================
+Total params: 6,393,885
+Trainable params: 6,393,885
+Non-trainable params: 0
+____________________________________________________________________________________________________
+Model loaded
+WARNING:tensorflow:From /home/edresson/anaconda3/envs/deepspeech/lib/python2.7/site-packages/keras/backend/tensorflow_backend.py:1299: calling reduce_mean (from tensorflow.python.ops.math_ops) with keep_dims is deprecated and will be removed in a future version.
+Instructions for updating:
+keep_dims is deprecated, use keepdims instead
+run-train.py:203: UserWarning: Update your `fit_generator` call to the Keras 2 API: `fit_generator(initial_epoch=0, verbose=1, generator=<generator..., workers=1, validation_data=<generator..., steps_per_epoch=97881, epochs=20, callbacks=[<keras.ca..., max_queue_size=10, validation_steps=10, use_multiprocessing=False, class_weight=None)`
+  pickle_safe=False
+Epoch 1/20
+  448/97881 [..............................] - ETA: 31988s - loss: 59.2810  
+  449/97881 [..............................] - ETA: 32003s - loss: 59.2715
+  450/97881 [..............................] - ETA: 32004s - loss: 59.2572
+  451/97881 [..............................] - ETA: 32001s - loss: 59.2259
+93920/97881 [===========================>..] - ETA: 3482s - loss: 65.6541 
+97878/97881 [============================>.] - ETA: 2s - loss: 66.3189SHUFFLING as reached end of data
+97880/97881 [============================>.] - ETA: 0s - loss: 66.3201shuffle_epoch_end
+SHUFFLING as reached end of data
+########################################################
+Completed Validation Test: WER & LER results
+('Test WER average is   :', 0.942175754656735)
+('Test LER average is   :', 61.24846625766871)
+('Test normalised LER is:', 0.6857494867559079)
+########################################################
+97881/97881 [==============================] - 93599s - loss: 66.3209 - val_loss: 39.0129
+Epoch 2/20
+70909/97881 [====================>.........] - ETA: 28391s - loss: 50.5553 
+70942/97881 [====================>.........] - ETA: 28358s - loss: 50.5537
+70943/97881 [====================>.........] - ETA: 28357s - loss: 50.5537
+88552/97881 [==========================>...] - ETA: 9900s - loss: 49.8474 
+
+
+
+88553/97881 [==========================>...] - ETA: 9899s - loss: 49.8474
+88554/97881 [==========================>...] - ETA: 9898s - loss: 49.8472
+
+
+
+88555/97881 [==========================>...] - ETA: 9897s - loss: 49.8473
+88556/97881 [==========================>...] - ETA: 9896s - loss: 49.8469
+
+
+88557/97881 [==========================>...] - ETA: 9895s - loss: 49.8470
+
+
+
+88558/97881 [==========================>...] - ETA: 9894s - loss: 49.8474
+
+88559/97881 [==========================>...] - ETA: 9893s - loss: 49.8473
+
+88560/97881 [==========================>...] - ETA: 9892s - loss: 49.8470
+
+88561/97881 [==========================>...] - ETA: 9891s - loss: 49.8468
+
+88562/97881 [==========================>...] - ETA: 9890s - loss: 49.8466
+
+
+88563/97881 [==========================>...] - ETA: 9889s - loss: 49.8463
+
+88564/97881 [==========================>...] - ETA: 9888s - loss: 49.8466
+
+97867/97881 [============================>.] - ETA: 14s - loss: 49.5209SHUFFLING as reached end of data
+97880/97881 [============================>.] - ETA: 1s - loss: 49.5206shuffle_epoch_end
+SHUFFLING as reached end of data
+########################################################
+Completed Validation Test: WER & LER results
+('Test WER average is   :', 0.7144314387787617)
+('Test LER average is   :', 29.811981234211476)
+('Test normalised LER is:', 0.34406960442640305)
+########################################################
+97881/97881 [==============================] - 108002s - loss: 49.5206 - val_loss: 77.4157
+Epoch 3/20
+52191/97881 [==============>...............] - ETA: 48210s - loss: 42.9824 
+61134/97881 [=================>............] - ETA: 38854s - loss: 42.8485^[[6~^[[6~^[[6~^[[6~^[[6~^[[6~^[[6~^[[6~^[[6~^[[6~^[[6~^[[6~^[[6~^[[6~^[[6~^[[6~^[[6~
+61135/97881 [=================>............] - ETA: 38853s - loss: 42.8483
+
+61254/97881 [=================>............] - ETA: 38725s - loss: 42.8493
+
+94925/97881 [============================>.] - ETA: 3138s - loss: 42.3941 
+94932/97881 [============================>.] - ETA: 3131s - loss: 42.3943
+97865/97881 [============================>.] - ETA: 16s - loss: 42.3529SHUFFLING as reached end of data
+97880/97881 [============================>.] - ETA: 1s - loss: 42.3512shuffle_epoch_end
+SHUFFLING as reached end of data
+########################################################
+Completed Validation Test: WER & LER results
+('Test WER average is   :', 0.671530167382956)
+('Test LER average is   :', 27.586791771923494)
+('Test normalised LER is:', 0.31562558654100864)
+########################################################
+('better ler/wer at:', './checkpoints/epoch/LER-WER-best-DS8_2018-08-28_08-35')
+('Saving model at:', './checkpoints/epoch/LER-WER-best-DS8_2018-08-28_08-35/model.json', './checkpoints/epoch/LER-WER-best-DS8_2018-08-28_08-35/model.h5')
+97881/97881 [==============================] - 107907s - loss: 42.3511 - val_loss: 76.9168
+Epoch 4/20
+35809/97881 [=========>....................] - ETA: 67793s - loss: 38.3321 
+36024/97881 [==========>...................] - ETA: 67545s - loss: 38.3265
+36025/97881 [==========>...................] - ETA: 67543s - loss: 38.3261
+97863/97881 [============================>.] - ETA: 19s - loss: 38.0807SHUFFLING as reached end of data
+97880/97881 [============================>.] - ETA: 1s - loss: 38.0803shuffle_epoch_end
+SHUFFLING as reached end of data
+########################################################
+Completed Validation Test: WER & LER results
+('Test WER average is   :', 0.66792020891667)
+('Test LER average is   :', 27.65012630819199)
+('Test normalised LER is:', 0.3162550198930739)
+########################################################
+('better ler/wer at:', './checkpoints/epoch/LER-WER-best-DS8_2018-08-28_08-35')
+('Saving model at:', './checkpoints/epoch/LER-WER-best-DS8_2018-08-28_08-35/model.json', './checkpoints/epoch/LER-WER-best-DS8_2018-08-28_08-35/model.h5')
+97881/97881 [==============================] - 109605s - loss: 38.0803 - val_loss: 87.4329
+Epoch 5/20
+14410/97881 [===>..........................] - ETA: 89261s - loss: 34.8252 
+97861/97881 [============================>.] - ETA: 21s - loss: 35.0740SHUFFLING as reached end of data
+97880/97881 [============================>.] - ETA: 1s - loss: 35.0741shuffle_epoch_end
+SHUFFLING as reached end of data
+########################################################
+Completed Validation Test: WER & LER results
+('Test WER average is   :', 0.6559582936136978)
+('Test LER average is   :', 26.204619271021294)
+('Test normalised LER is:', 0.30041134373548933)
+########################################################
+('better ler/wer at:', './checkpoints/epoch/LER-WER-best-DS8_2018-08-28_08-35')
+('Saving model at:', './checkpoints/epoch/LER-WER-best-DS8_2018-08-28_08-35/model.json', './checkpoints/epoch/LER-WER-best-DS8_2018-08-28_08-35/model.h5')
+97881/97881 [==============================] - 108768s - loss: 35.0739 - val_loss: 82.3036
+Epoch 6/20
+ 2295/97881 [..............................] - ETA: 106724s - loss: 32.1229
+ 2296/97881 [..............................] - ETA: 106719s - loss: 32.1136
+
+
+
+ 2297/97881 [..............................] - ETA: 106729s - loss: 32.1227
+97859/97881 [============================>.] - ETA: 23s - loss: 32.7598SHUFFLING as reached end of data
+97880/97881 [============================>.] - ETA: 1s - loss: 32.7584shuffle_epoch_end
+SHUFFLING as reached end of data
+########################################################
+Completed Validation Test: WER & LER results
+('Test WER average is   :', 0.6453044705499282)
+('Test LER average is   :', 26.291230602670517)
+('Test normalised LER is:', 0.3007184094013239)
+########################################################
+('better ler/wer at:', './checkpoints/epoch/LER-WER-best-DS8_2018-08-28_08-35')
+('Saving model at:', './checkpoints/epoch/LER-WER-best-DS8_2018-08-28_08-35/model.json', './checkpoints/epoch/LER-WER-best-DS8_2018-08-28_08-35/model.h5')
+97881/97881 [==============================] - 108818s - loss: 32.7581 - val_loss: 94.9946
+Epoch 7/20
+97857/97881 [============================>.] - ETA: 25s - loss: 30.9165SHUFFLING as reached end of data
+97880/97881 [============================>.] - ETA: 1s - loss: 30.9172shuffle_epoch_end
+SHUFFLING as reached end of data
+########################################################
+Completed Validation Test: WER & LER results
+('Test WER average is   :', 0.6455802275325039)
+('Test LER average is   :', 25.94947672320462)
+('Test normalised LER is:', 0.2970333913840215)
+########################################################
+('better ler/wer at:', './checkpoints/epoch/LER-WER-best-DS8_2018-08-28_08-35')
+('Saving model at:', './checkpoints/epoch/LER-WER-best-DS8_2018-08-28_08-35/model.json', './checkpoints/epoch/LER-WER-best-DS8_2018-08-28_08-35/model.h5')
+97881/97881 [==============================] - 108881s - loss: 30.9172 - val_loss: 109.1896
+Epoch 8/20
+97855/97881 [============================>.] - ETA: 27s - loss: 29.3487SHUFFLING as reached end of data
+97880/97881 [============================>.] - ETA: 1s - loss: 29.3480shuffle_epoch_end
+SHUFFLING as reached end of data
+########################################################
+Completed Validation Test: WER & LER results
+('Test WER average is   :', 0.6432296044208871)
+('Test LER average is   :', 25.934861060988812)
+('Test normalised LER is:', 0.29691480924992125)
+########################################################
+('better ler/wer at:', './checkpoints/epoch/LER-WER-best-DS8_2018-08-28_08-35')
+('Saving model at:', './checkpoints/epoch/LER-WER-best-DS8_2018-08-28_08-35/model.json', './checkpoints/epoch/LER-WER-best-DS8_2018-08-28_08-35/model.h5')
+97881/97881 [==============================] - 109101s - loss: 29.3477 - val_loss: 77.7611
+Epoch 9/20
+53566/97881 [===============>..............] - ETA: 49422s - loss: 27.5363 
+53567/97881 [===============>..............] - ETA: 49421s - loss: 27.5361
+97853/97881 [============================>.] - ETA: 30s - loss: 28.0336SHUFFLING as reached end of data
+97880/97881 [============================>.] - ETA: 1s - loss: 28.0324shuffle_epoch_end
+SHUFFLING as reached end of data
+########################################################
+Completed Validation Test: WER & LER results
+('Test WER average is   :', 0.6401931489406194)
+('Test LER average is   :', 26.165102850956334)
+('Test normalised LER is:', 0.29826557298995593)
+########################################################
+('better ler/wer at:', './checkpoints/epoch/LER-WER-best-DS8_2018-08-28_08-35')
+('Saving model at:', './checkpoints/epoch/LER-WER-best-DS8_2018-08-28_08-35/model.json', './checkpoints/epoch/LER-WER-best-DS8_2018-08-28_08-35/model.h5')
+97881/97881 [==============================] - 111056s - loss: 28.0322 - val_loss: 92.4930
+Epoch 10/20
+82693/97881 [========================>.....] - ETA: 16284s - loss: 26.6895 
+
+82694/97881 [========================>.....] - ETA: 16283s - loss: 26.6896
+
+
+
+82695/97881 [========================>.....] - ETA: 16282s - loss: 26.6895
+
+
+
+
+97851/97881 [============================>.] - ETA: 32s - loss: 26.8437SHUFFLING as reached end of data
+97880/97881 [============================>.] - ETA: 1s - loss: 26.8430shuffle_epoch_end
+SHUFFLING as reached end of data
+########################################################
+Completed Validation Test: WER & LER results
+('Test WER average is   :', 0.6382128695776136)
+('Test LER average is   :', 26.134428004330566)
+('Test normalised LER is:', 0.2984759032304223)
+########################################################
+('better ler/wer at:', './checkpoints/epoch/LER-WER-best-DS8_2018-08-28_08-35')
+('Saving model at:', './checkpoints/epoch/LER-WER-best-DS8_2018-08-28_08-35/model.json', './checkpoints/epoch/LER-WER-best-DS8_2018-08-28_08-35/model.h5')
+97881/97881 [==============================] - 109200s - loss: 26.8430 - val_loss: 86.9210
+Epoch 11/20
+97849/97881 [============================>.] - ETA: 35s - loss: 25.8249SHUFFLING as reached end of data
+97880/97881 [============================>.] - ETA: 1s - loss: 25.8251shuffle_epoch_end
+SHUFFLING as reached end of data
+########################################################
+Completed Validation Test: WER & LER results
+('Test WER average is   :', 0.6417451818061599)
+('Test LER average is   :', 26.031577047997114)
+('Test normalised LER is:', 0.29830985766800155)
+########################################################
+97881/97881 [==============================] - 113086s - loss: 25.8255 - val_loss: 55.0054
+Epoch 12/20
+97847/97881 [============================>.] - ETA: 37s - loss: 24.9016SHUFFLING as reached end of data
+97880/97881 [============================>.] - ETA: 1s - loss: 24.9007shuffle_epoch_end
+SHUFFLING as reached end of data
+########################################################
+Completed Validation Test: WER & LER results
+('Test WER average is   :', 0.6399792131772137)
+('Test LER average is   :', 26.14308913749549)
+('Test normalised LER is:', 0.2985459195754405)
+########################################################
+97881/97881 [==============================] - 113229s - loss: 24.9008 - val_loss: 88.3742
+Epoch 13/20
+70423/97881 [====================>.........] - ETA: 30625s - loss: 23.7885 
+
+70424/97881 [====================>.........] - ETA: 30623s - loss: 23.7883
+
+
+70450/97881 [====================>.........] - ETA: 30595s - loss: 23.7876
+70741/97881 [====================>.........] - ETA: 30282s - loss: 23.7829
+70742/97881 [====================>.........] - ETA: 30281s - loss: 23.7827
+
+
+
+70743/97881 [====================>.........] - ETA: 30280s - loss: 23.7829
+97845/97881 [============================>.] - ETA: 40s - loss: 24.0792SHUFFLING as reached end of data
+97880/97881 [============================>.] - ETA: 1s - loss: 24.0782shuffle_epoch_end
+SHUFFLING as reached end of data
+########################################################
+Completed Validation Test: WER & LER results
+('Test WER average is   :', 0.6413298663658119)
+('Test LER average is   :', 25.955972573078313)
+('Test normalised LER is:', 0.2970616527049556)
+########################################################
+97881/97881 [==============================] - 113329s - loss: 24.0781 - val_loss: 87.5322
+Epoch 14/20
+55503/97881 [================>.............] - ETA: 47427s - loss: 22.7210 
+55504/97881 [================>.............] - ETA: 47426s - loss: 22.7207
+
+55505/97881 [================>.............] - ETA: 47425s - loss: 22.7212
+55506/97881 [================>.............] - ETA: 47423s - loss: 22.7209
+
+
+55507/97881 [================>.............] - ETA: 47423s - loss: 22.7209
+
+
+
+55510/97881 [================>.............] - ETA: 47420s - loss: 22.7214
+
+55511/97881 [================>.............] - ETA: 47419s - loss: 22.7212
+
+
+55512/97881 [================>.............] - ETA: 47418s - loss: 22.7213
+55561/97881 [================>.............] - ETA: 47366s - loss: 22.7186
+55562/97881 [================>.............] - ETA: 47365s - loss: 22.7186
+
+
+
+55563/97881 [================>.............] - ETA: 47364s - loss: 22.7187
+97843/97881 [============================>.] - ETA: 42s - loss: 23.2813SHUFFLING as reached end of data
+97880/97881 [============================>.] - ETA: 1s - loss: 23.2818shuffle_epoch_end
+SHUFFLING as reached end of data
+########################################################
+Completed Validation Test: WER & LER results
+('Test WER average is   :', 0.6449631954908804)
+('Test LER average is   :', 26.326236015878745)
+('Test normalised LER is:', 0.3001346261751499)
+########################################################
+97881/97881 [==============================] - 113328s - loss: 23.2816 - val_loss: 95.5761
+Epoch 15/20
+25353/97881 [======>.......................] - ETA: 81074s - loss: 21.515 ,
+25354/97881 [======>.......................] - ETA: 81074s - loss: 21.5150
+
+
+25355/97881 [======>.......................] - ETA: 81072s - loss: 21.5149
+
+97841/97881 [============================>.] - ETA: 44s - loss: 22.6258SHUFFLING as reached end of data
+97880/97881 [============================>.] - ETA: 1s - loss: 22.6253shuffle_epoch_end
+SHUFFLING as reached end of data
+########################################################
+Completed Validation Test: WER & LER results
+('Test WER average is   :', 0.644478021471023)
+('Test LER average is   :', 26.149224106820643)
+('Test normalised LER is:', 0.29885948067388324)
+########################################################
+97881/97881 [==============================] - 113296s - loss: 22.6252 - val_loss: 111.2076
+Epoch 16/20
+74265/97881 [=====================>........] - ETA: 26381s - loss: 21.6055 
+74266/97881 [=====================>........] - ETA: 26380s - loss: 21.6061
+
+
+
+74267/97881 [=====================>........] - ETA: 26379s - loss: 21.6058
+
+97839/97881 [============================>.] - ETA: 46s - loss: 21.9192SHUFFLING as reached end of data
+97880/97881 [============================>.] - ETA: 1s - loss: 21.9190shuffle_epoch_end
+SHUFFLING as reached end of data
+########################################################
+Completed Validation Test: WER & LER results
+('Test WER average is   :', 0.6432853257064073)
+('Test LER average is   :', 26.04384698664742)
+('Test normalised LER is:', 0.29739119559776594)
+########################################################
+97881/97881 [==============================] - 113341s - loss: 21.9189 - val_loss: 94.8873
+Epoch 17/20
+97837/97881 [============================>.] - ETA: 49s - loss: 21.3827SHUFFLING as reached end of data
+97880/97881 [============================>.] - ETA: 1s - loss: 21.3827shuffle_epoch_end
+SHUFFLING as reached end of data
+########################################################
+Completed Validation Test: WER & LER results
+('Test WER average is   :', 0.6414723832791076)
+('Test LER average is   :', 26.24197040779502)
+('Test normalised LER is:', 0.3001295955581521)
+########################################################
+97881/97881 [==============================] - 113351s - loss: 21.3827 - val_loss: 103.8733
+Epoch 18/20
+55270/97881 [===============>..............] - ETA: 47678s - loss: 20.0872 
+
+55271/97881 [===============>..............] - ETA: 47676s - loss: 20.0870
+
+97835/97881 [============================>.] - ETA: 51s - loss: 20.7736SHUFFLING as reached end of data
+97880/97881 [============================>.] - ETA: 1s - loss: 20.7710shuffle_epoch_end
+SHUFFLING as reached end of data
+########################################################
+Completed Validation Test: WER & LER results
+('Test WER average is   :', 0.6503217652225426)
+('Test LER average is   :', 26.57380007217611)
+('Test normalised LER is:', 0.30322037403102914)
+########################################################
+97881/97881 [==============================] - 113466s - loss: 20.7708 - val_loss: 104.4138
+Epoch 19/20
+80178/97881 [=======================>......] - ETA: 19832s - loss: 20.0446 
+80179/97881 [=======================>......] - ETA: 19831s - loss: 20.0453
+
+80180/97881 [=======================>......] - ETA: 19830s - loss: 20.0453
+80181/97881 [=======================>......] - ETA: 19829s - loss: 20.0450
+
+
+80182/97881 [=======================>......] - ETA: 19828s - loss: 20.0449
+80252/97881 [=======================>......] - ETA: 19751s - loss: 20.0445
+80253/97881 [=======================>......] - ETA: 19750s - loss: 20.0455
+
+80254/97881 [=======================>......] - ETA: 19749s - loss: 20.0460
+
+97833/97881 [============================>.] - ETA: 53s - loss: 20.2696SHUFFLING as reached end of data
+97880/97881 [============================>.] - ETA: 1s - loss: 20.2683shuffle_epoch_end
+SHUFFLING as reached end of data
+########################################################
+Completed Validation Test: WER & LER results
+('Test WER average is   :', 0.6495101357561085)
+('Test LER average is   :', 26.389750992421508)
+('Test normalised LER is:', 0.30094824325679087)
+########################################################
+97881/97881 [==============================] - 113485s - loss: 20.2682 - val_loss: 110.7750
+Epoch 20/20
+97831/97881 [============================>.] - ETA: 55s - loss: 19.7954SHUFFLING as reached end of data
+97880/97881 [============================>.] - ETA: 1s - loss: 19.7935shuffle_epoch_end
+SHUFFLING as reached end of data
+########################################################
+Completed Validation Test: WER & LER results
+('Test WER average is   :', 0.6474515606751932)
+('Test LER average is   :', 26.68206423673764)
+('Test normalised LER is:', 0.30361837339698283)
+########################################################
+97881/97881 [==============================] - 113372s - loss: 19.7933 - val_loss: 105.2968
+('Tempo de treino em segundos:', 2208233.8873050213)
+('Mean WER   :', [0.942175754656735, 0.7144314387787617, 0.671530167382956, 0.66792020891667, 0.6559582936136978, 0.6453044705499282, 0.6455802275325039, 0.6432296044208871, 0.6401931489406194, 0.6382128695776136, 0.6417451818061599, 0.6399792131772137, 0.6413298663658119, 0.6449631954908804, 0.644478021471023, 0.6432853257064073, 0.6414723832791076, 0.6503217652225426, 0.6495101357561085, 0.6474515606751932])
+('Mean LER   :', [61.24846625766871, 29.811981234211476, 27.586791771923494, 27.65012630819199, 26.204619271021294, 26.291230602670517, 25.94947672320462, 25.934861060988812, 26.165102850956334, 26.134428004330566, 26.031577047997114, 26.14308913749549, 25.955972573078313, 26.326236015878745, 26.149224106820643, 26.04384698664742, 26.24197040779502, 26.57380007217611, 26.389750992421508, 26.68206423673764])
+('NormMeanLER:', [0.6857494867559079, 0.34406960442640305, 0.31562558654100864, 0.3162550198930739, 0.30041134373548933, 0.3007184094013239, 0.2970333913840215, 0.29691480924992125, 0.29826557298995593, 0.2984759032304223, 0.29830985766800155, 0.2985459195754405, 0.2970616527049556, 0.3001346261751499, 0.29885948067388324, 0.29739119559776594, 0.3001295955581521, 0.30322037403102914, 0.30094824325679087, 0.30361837339698283])
+
+
+
+tempo de treino tensorboar: 24 dias 11 horas 11 min 13 segundos
+

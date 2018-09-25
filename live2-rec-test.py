@@ -19,15 +19,22 @@ from utils import *
 from data import combine_all_wavs_and_trans_from_csvs
 from generator import *
 
+from pydub import AudioSegment
+import os
 #####################################################
 
 CHUNK = 1024
 FORMAT = pyaudio.paInt16
 CHANNELS = 1
-RATE = 16000
+RATE = 48000
 
 AUDIO_FILE = path.join(path.dirname(path.realpath(__file__)), "./live/rec.wav")
 OUTPUT_DIR = "./live/"
+
+
+def match_target_amplitude(sound, target_dBFS):
+    change_in_dBFS = target_dBFS - sound.dBFS
+    return sound.apply_gain(change_in_dBFS)
 
 
 def clean(word):
@@ -130,7 +137,14 @@ def record(name, dir, trans):
     wf.setframerate(RATE)
     wf.writeframes(b''.join(frames))
     wf.close()
-
+    sound = AudioSegment.from_file(fileindir)
+    normalized_sound = match_target_amplitude(sound, -20.0)
+    normalized_sound.export(fileindir, format="wav")
+    os.system("sox "+fileindir+" --bits 16 --encoding signed-integer --endian little INPUT.raw")
+    os.system("/home/edresson/Projetos-PTI/TCC/rnnoise/examples/rnnoise_demo INPUT.raw  out.raw")
+    os.system("sox  -e signed-integer -b 16 -r 48000  out.raw "+fileindir)
+    
+    
     return fileindir
 
 
@@ -139,7 +153,9 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     #parser.add_argument('--loadcheckpointpath', type=str, default='./checkpoints/trimmed/',
     #parser.add_argument('--loadcheckpointpath', type=str, default='./checkpoints/epoch/LER-WER-best-DS3_2017-09-02_13-40',
-    parser.add_argument('--loadcheckpointpath', type=str, default='./checkpoints/epoch/LER-WER-best-DS8_2018-07-14_15-07',
+    #parser.add_argument('--loadcheckpointpath', type=str, default='./checkpoints/epoch/LER-WER-best-DS8_2018-07-14_15-07',
+    parser.add_argument('--loadcheckpointpath', type=str, default='./checkpoints/epoch/LER-WER-best-DS8_2018-08-28_08-35',
+
                         help='If value set, load the checkpoint json '
                              'weights assumed as same name '
                              ' e.g. --loadcheckpointpath ./checkpoints/'
@@ -228,9 +244,7 @@ if __name__ == '__main__':
         report = K.function([input_data, K.learning_phase()], [y_pred])
         report_cb = ReportCallback(report, testdata, model, args.name, save=False)
         report_cb.force_output = True
-        label,corrected=report_cb.live_predict(0, logs=None)
-        #report_cb.on_epoch_end(0, logs=None)
-        print label,corrected
+        report_cb.on_epoch_end(0, logs=None)
 
         tryagain = str(raw_input('do you want to try again? press N to stop \n:'))
 

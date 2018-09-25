@@ -101,29 +101,9 @@ def main(args):
     else:
         # new model recipes here
         print('New model DS{}'.format(args.model_arch))
-        if (args.model_arch == 0):
-            # DeepSpeech1 with Dropout
-            model = ds1_dropout(input_dim=26, fc_size=args.fc_size, rnn_size=args.rnn_size,dropout=[0.1,0.1,0.1], output_dim=29)
-
-        elif(args.model_arch==1):
-            # DeepSpeech1 - no dropout
-            model = ds1(input_dim=26, fc_size=args.fc_size, rnn_size=args.rnn_size, output_dim=29)
-
-        elif(args.model_arch==2):
-            # DeepSpeech2 model
-            model = ds2_gru_model(input_dim=161, fc_size=args.fc_size, rnn_size=args.rnn_size, output_dim=29)
-
-        elif(args.model_arch==3):
-            # own model
-            model = ownModel(input_dim=26, fc_size=args.fc_size, rnn_size=args.rnn_size, dropout=[0.1, 0.1, 0.1], output_dim=29)
-
-        elif(args.model_arch==4):
+        if(args.model_arch==4):
             # graves model
             model = graves(input_dim=26, rnn_size=args.rnn_size, output_dim=29, std=0.5)
-
-        elif(args.model_arch==5):
-            #cnn city
-            model = cnn_city(input_dim=161, fc_size=args.fc_size, rnn_size=args.rnn_size, output_dim=29)
 
         elif(args.model_arch == 6):
             # constrained model

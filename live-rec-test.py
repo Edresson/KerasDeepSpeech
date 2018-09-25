@@ -9,10 +9,13 @@ import datetime
 import wave
 from os import path
 
+<<<<<<< HEAD
 import sys
 import GUI as gui
 from PyQt5 import QtCore, QtGui, QtWidgets
 
+=======
+>>>>>>> 28841d14a68f51df1354a8bcef4c7a3298fa711d
 import pandas as pd
 import pyaudio
 import speech_recognition as sr
@@ -22,6 +25,7 @@ from utils import *
 
 from data import combine_all_wavs_and_trans_from_csvs
 from generator import *
+<<<<<<< HEAD
 import threading
 #####################################################
 
@@ -31,6 +35,10 @@ def threaded(func):
         t.start()
         return
     return wrapper
+=======
+
+#####################################################
+>>>>>>> 28841d14a68f51df1354a8bcef4c7a3298fa711d
 
 CHUNK = 1024
 FORMAT = pyaudio.paInt16
@@ -40,7 +48,10 @@ RATE = 16000
 AUDIO_FILE = path.join(path.dirname(path.realpath(__file__)), "./live/rec.wav")
 OUTPUT_DIR = "./live/"
 
+<<<<<<< HEAD
 flag = 0
+=======
+>>>>>>> 28841d14a68f51df1354a8bcef4c7a3298fa711d
 
 def clean(word):
     # token = re.compile("[\w-]+|'m|'t|'ll|'ve|'d|'s|\'")
@@ -55,6 +66,7 @@ def clean(word):
     new = new.replace('-', '')
     return new
 
+<<<<<<< HEAD
 @threaded 
 def startloop(rec_number=1):
     K.set_learning_phase(0)
@@ -130,6 +142,57 @@ def startloop(rec_number=1):
 def record(name, dir, trans):
     global flag
     global ui,flag,y_pred,input_data,K,pd,sr,OUTPUT_DIR
+=======
+def startloop(rec_number):
+    ##read in data from csv
+    # df = pd.read_csv(TRANSCRIPT_SOURCE, sep=',', header=None)
+
+    #HEADERS
+    wav_filename = []
+    wav_filesize = []
+    transcript = []
+
+    # print("when ready press enter to start recording and then ctrl+c to stop")
+    # time.sleep(1)
+
+    trans = str(raw_input('please type the exact words you will speak (for WER calculation), or press enter to use Google Transcribe for WER calc\n:'))
+    trans = clean(trans)
+    if trans == "":
+        trans = "N/A"
+
+    print("Transcript is:", trans)
+
+    inputvar = str(raw_input('ready? press enter to begin recording and ctrl+c to stop'))
+    filename = "rec"
+
+    if inputvar == "":
+        r = record(filename, OUTPUT_DIR, trans)
+        # inputcheck = str(raw_input('press enter if you are happy, or r to redo.'))
+        wav_filename.append(r)
+        wav_filesize.append(os.path.getsize(r))
+
+        if trans == "N/A":
+            r = sr.Recognizer()
+            with sr.AudioFile(AUDIO_FILE) as source:
+                audio = r.record(source)  # read the entire audio file
+                trans = r.recognize_google(audio)
+                trans = trans.lower()
+
+        transcript.append(trans)
+
+
+    a = {'wav_filename': wav_filename,
+         'wav_filesize': wav_filesize,
+         'transcript': transcript
+         }
+
+    df_train = pd.DataFrame(a, columns=['wav_filename', 'wav_filesize', 'transcript'], dtype=int)
+    df_train.to_csv("./live/live.csv", sep=',', header=True, index=False, encoding='ascii')
+
+def record(name, dir, trans):
+
+
+>>>>>>> 28841d14a68f51df1354a8bcef4c7a3298fa711d
     p = pyaudio.PyAudio()
     stream = p.open(format=FORMAT,
                     channels=CHANNELS,
@@ -145,9 +208,19 @@ def record(name, dir, trans):
     frames = []
     #for i in range(0, int(RATE / CHUNK * RECORD_MINUTES * 60)):
 
+<<<<<<< HEAD
     while flag:
             data = stream.read(CHUNK)
             frames.append(data)
+=======
+    while 1:
+        try:
+            data = stream.read(CHUNK)
+            frames.append(data)
+        except KeyboardInterrupt:
+            print("STOPPING")
+            break
+>>>>>>> 28841d14a68f51df1354a8bcef4c7a3298fa711d
 
 
     stream.stop_stream()
@@ -172,13 +245,22 @@ if __name__ == '__main__':
 
     parser = argparse.ArgumentParser()
     #parser.add_argument('--loadcheckpointpath', type=str, default='./checkpoints/trimmed/',
+<<<<<<< HEAD
     #parser.add_argument('--loadcheckpointpath', type=str, default='./checkpoints/epoch/LER-WER-best-DS3_2017-09-02_13-40',
     parser.add_argument('--loadcheckpointpath', type=str, default='checkpoints/epoch/LER-WER-best-DS8_2018-07-14_15-07',
+=======
+    #parser.add_argument('--loadcheckpointpath', type=str, default='./checkpoints/epoch/LER-WER-best-DS8_2018-07-14_15-07',
+    parser.add_argument('--loadcheckpointpath', type=str, default='./checkpoints/epoch/LER-WER-best-DS8_2018-07-14_15-07',
+>>>>>>> 28841d14a68f51df1354a8bcef4c7a3298fa711d
                         help='If value set, load the checkpoint json '
                              'weights assumed as same name '
                              ' e.g. --loadcheckpointpath ./checkpoints/'
                              'TRIMMED_ds_ctc_model ')
+<<<<<<< HEAD
     parser.add_argument('--model_arch', type=int, default=8,
+=======
+    parser.add_argument('--model_arch', type=int, default=3,
+>>>>>>> 28841d14a68f51df1354a8bcef4c7a3298fa711d
                         help='choose between model_arch versions (when training not loading) '
                              '--model_arch=1 uses DS1 fully connected layers with simplernn'
                              '--model_arch=2 uses DS2 fully connected with GRU'
@@ -246,6 +328,7 @@ if __name__ == '__main__':
 
     #2. record data and put it in live folder LOOP
 
+<<<<<<< HEAD
     
     app = QtWidgets.QApplication(sys.argv)
     MainWindow = QtWidgets.QMainWindow()
@@ -258,6 +341,30 @@ if __name__ == '__main__':
 
     MainWindow.show()
     sys.exit(app.exec_())
+=======
+    while 1:
+        startloop(1)
+
+        args.test_files = "./live/live.csv"
+        print("Getting data from arguments")
+        test_dataprops, df_test = combine_all_wavs_and_trans_from_csvs(args.test_files, sortagrad=False)
+        ## x. init data generators
+        print("Creating data batch generators")
+        testdata = BatchGenerator(dataframe=df_test, dataproperties=test_dataprops,
+                                  training=False, batch_size=1, model_input_type=model_input_type)
+
+
+        ## RUN TEST
+        report = K.function([input_data, K.learning_phase()], [y_pred])
+        report_cb = ReportCallback(report, testdata, model, args.name, save=False)
+        report_cb.force_output = True
+        report_cb.on_epoch_end(0, logs=None)
+
+        tryagain = str(raw_input('do you want to try again? press N to stop \n:'))
+
+        if(tryagain == "N" or tryagain == "n"):
+            break
+>>>>>>> 28841d14a68f51df1354a8bcef4c7a3298fa711d
 
 
     K.clear_session()

@@ -4,7 +4,7 @@ import os
 def match_target_amplitude(sound, target_dBFS):
     change_in_dBFS = target_dBFS - sound.dBFS
     return sound.apply_gain(change_in_dBFS)
-data = 'wavs/'
+data = 'LibriSpeech/train-clean-100-wav/'
 files=os.listdir(data)
 for file in files:
     sound = AudioSegment.from_file(data+file, "wav")
