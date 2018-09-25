@@ -126,7 +126,7 @@ def main(args):
             raise("model not found")
 
         print(model.summary(line_length=80))
-        sys.exit()
+        #sys.exit()
         #required to save the JSON
         save_model(model, output_dir)
 
