@@ -298,7 +298,7 @@ def CR2(input_dim=39, conv_size=512, num_classes=29, input_std_noise=.0, residua
         x = Conv1D(2,kernel_size = 3,padding='same')(x)
     for _ in range(4) :
         print('shape x:',x.shape)
-        x = SimpleRNN(256,return_sequences=True)(x) #Bidirectional(
+        x = Bidirectional(SimpleRNN(256,return_sequences=True))(x) #Bidirectional(
     o = TimeDistributed(Dense(256,activation='relu'))(x)        
     o = TimeDistributed(Dense(num_classes,activation='softmax'))(o)
     # Input of labels and other CTC requirements
