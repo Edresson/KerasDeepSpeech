@@ -363,7 +363,7 @@ def DeepSpeech2(input_dim=39, conv_size=512, num_classes=29, input_std_noise=.0,
 
     return model
 
-def DeepSpeech2_Simplified(input_dim=39, conv_size=512, num_classes=29, input_std_noise=.0, residual=None, num_hiddens=256, num_layers=5,
+def DeepSpeech2_QRNN(input_dim=39, conv_size=512, num_classes=29, input_std_noise=.0, residual=None, num_hiddens=512, num_layers=5,
            dropout=0.2 , input_dropout=False, weight_decay=1e-4, activation='tanh'):
     """ Implementation of CR2
 
@@ -383,9 +383,9 @@ def DeepSpeech2_Simplified(input_dim=39, conv_size=512, num_classes=29, input_st
     o = BatchNormalization(axis=-1, name='BN_2')(o)
     
     # BiRNNs
-    o= Bidirectional(SimpleRNN(1280, return_sequences=True, name='BiRNN_1'), merge_mode='sum')(o)
-    o= Bidirectional(SimpleRNN(1280, return_sequences=True, name='BiRNN_2'), merge_mode='sum')(o)
-    o = Bidirectional(SimpleRNN(1280, return_sequences=True, name='BiRNN_3'), merge_mode='sum')(o)
+    o=QRNN_Bidirectional(QRNN(num_hiddens,return_sequences=True, name='BiRNN_1'), merge_mode='sum')(o)
+    o=QRNN_Bidirectional(QRNN(num_hiddens,return_sequences=True, name='BiRNN_1'), merge_mode='sum')(o)
+    o=QRNN_Bidirectional(QRNN(num_hiddens,return_sequences=True, name='BiRNN_1'), merge_mode='sum')(o)
     # Batch Normalization
     o = BatchNormalization(axis=-1, name='BN_3')(o)
     o = TimeDistributed(Dense(1024,activation=clipped_relu, name='FC1'))(o)        
