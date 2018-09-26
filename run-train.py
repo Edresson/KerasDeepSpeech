@@ -101,7 +101,10 @@ def main(args):
     else:
         # new model recipes here
         print('New model DS{}'.format(args.model_arch))
-        if(args.model_arch==4):
+        if(args.model_arch==1):
+            model = DeepSpeech2(input_dim=26, conv_size=512, num_classes=29, input_std_noise=.0, residual=None, num_hiddens=256, num_layers=5,dropout=0.2 , input_dropout=False, weight_decay=1e-4, activation='tanh')
+
+        elif(args.model_arch==4):
             # graves model
             model = graves(input_dim=26, rnn_size=args.rnn_size, output_dim=29, std=0.5)
 

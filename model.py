@@ -316,47 +316,36 @@ def CR2(input_dim=39, conv_size=512, num_classes=29, input_std_noise=.0, residua
 
     return model
 
-
-def ConvDilated_antigo(input_dim=39, conv_size=512, num_classes=29, input_std_noise=.0, residual=None, num_hiddens=256, num_layers=5,
+def DeepSpeech2(input_dim=39, conv_size=512, num_classes=29, input_std_noise=.0, residual=None, num_hiddens=256, num_layers=5,
            dropout=0.2 , input_dropout=False, weight_decay=1e-4, activation='tanh'):
-    """ Implementation of ConvDilated DeepSpeech
+    """ Implementation of CR2
 
-    Reference: 
+    Reference: http://proceedings.mlr.press/v48/amodei16.html
 
     """
 
     K.set_learning_phase(1)
     input_data = Input(name='the_input', shape=(None, input_dim))
     o=input_data
-    if input_std_noise is not None:
-        o = GaussianNoise(input_std_noise)(o)
-        
-    if input_dropout:
-        o = Dropout(dropout)(o)
-    x=o
-    for j in range(6):
-        x = Conv1D(16, kernel_size = 3,padding='causal')(x)
-    for j in range(2):    
-        x = Conv1D(8,kernel_size = 3,padding='causal',dilation_rate = 3**j)(x)
-    for j in range(2):    
-        x = Conv1D(4,kernel_size = 3,padding='causal',dilation_rate = 3**j)(x)
-    for j in range(2):    
-        x = Conv1D(2,kernel_size = 3,padding='causal')(x)
-        
-            
-    """for j in range(2):
-            x = Conv1D(int(conv_size//2)*2,name='dilated2-'+str(j), padding='causal',
-                       kernel_size = 3, 
-                       dilation_rate = 3**j)(x)"""
-            
-    '''for dilation_rate in range(3):
-        for i in range(3):
-            x = Conv1D(32*2**(i), 
-                       kernel_size = 3, 
-                       dilation_rate = dilation_rate+1)(x)'''
-    #o = QRNN_Bidirectional(QRNN(num_hiddens, return_sequences=True, activation=activation))(x)
+    o = Conv1D(512, 5, strides=1, activation=clipped_relu, name='Conv1D_1')(o)
+    o= Conv1D(512, 5, strides=1, activation=clipped_relu, name='Conv1D_2')(o)
+    o= Conv1D(512, 5, strides=2, activation=clipped_relu, name='Conv1D_3')(o)
     
-    o = TimeDistributed(Dense(256,activation='relu'))(x)        
+    # Batch Normalization
+    o = BatchNormalization(axis=-1, name='BN_2')(o)
+    
+    # BiRNNs
+    o= Bidirectional(SimpleRNN(1280, return_sequences=True, name='BiRNN_1'), merge_mode='sum')(o)
+    o= Bidirectional(SimpleRNN(1280, return_sequences=True, name='BiRNN_2'), merge_mode='sum')(o)
+    o = Bidirectional(SimpleRNN(1280, return_sequences=True, name='BiRNN_3'), merge_mode='sum')(o)
+    o =Bidirectional(SimpleRNN(1280, return_sequences=True, name='BiRNN_4'), merge_mode='sum')(o)
+    o =Bidirectional(SimpleRNN(1280, return_sequences=True, name='BiRNN_5'), merge_mode='sum')(o)
+    o =Bidirectional(SimpleRNN(1280, return_sequences=True, name='BiRNN_6'), merge_mode='sum')(o)
+    o = Bidirectional(SimpleRNN(1280, return_sequences=True, name='BiRNN_7'), merge_mode='sum')(o)
+    
+    # Batch Normalization
+    o = BatchNormalization(axis=-1, name='BN_3')(o)
+    o = TimeDistributed(Dense(1024,activation=clipped_relu, name='FC1'))(o)        
     o = TimeDistributed(Dense(num_classes,activation='softmax'))(o)
     # Input of labels and other CTC requirements
     labels = Input(name='the_labels', shape=[None,], dtype='int32')
@@ -372,6 +361,7 @@ def ConvDilated_antigo(input_dim=39, conv_size=512, num_classes=29, input_std_no
     model = Model(inputs=[input_data, labels, input_length, label_length], outputs=[loss_out])
 
     return model
+
 
 def ConvDilated(input_dim=39, conv_size=512, num_classes=29, input_std_noise=.0, residual=None, num_hiddens=256, num_layers=5,
            dropout=0.2 , input_dropout=False, weight_decay=1e-4, activation='tanh'):
