@@ -363,6 +363,47 @@ def DeepSpeech2(input_dim=39, conv_size=512, num_classes=29, input_std_noise=.0,
 
     return model
 
+def DeepSpeech2_Simplified(input_dim=39, conv_size=512, num_classes=29, input_std_noise=.0, residual=None, num_hiddens=256, num_layers=5,
+           dropout=0.2 , input_dropout=False, weight_decay=1e-4, activation='tanh'):
+    """ Implementation of CR2
+
+    Reference: http://proceedings.mlr.press/v48/amodei16.html
+
+    """
+
+    K.set_learning_phase(1)
+    input_data = Input(name='the_input', shape=(None, input_dim))
+    o=input_data
+    o =BatchNormalization(axis=-1, name='BN_1')(o)
+    o = Conv1D(512, 5, strides=1, activation=clipped_relu, name='Conv1D_1')(o)
+    o= Conv1D(512, 5, strides=1, activation=clipped_relu, name='Conv1D_2')(o)
+    o= Conv1D(512, 5, strides=2, activation=clipped_relu, name='Conv1D_3')(o)
+    
+    # Batch Normalization
+    o = BatchNormalization(axis=-1, name='BN_2')(o)
+    
+    # BiRNNs
+    o= Bidirectional(SimpleRNN(1280, return_sequences=True, name='BiRNN_1'), merge_mode='sum')(o)
+    o= Bidirectional(SimpleRNN(1280, return_sequences=True, name='BiRNN_2'), merge_mode='sum')(o)
+    o = Bidirectional(SimpleRNN(1280, return_sequences=True, name='BiRNN_3'), merge_mode='sum')(o)
+    # Batch Normalization
+    o = BatchNormalization(axis=-1, name='BN_3')(o)
+    o = TimeDistributed(Dense(1024,activation=clipped_relu, name='FC1'))(o)        
+    o = TimeDistributed(Dense(num_classes,activation='softmax'))(o)
+    # Input of labels and other CTC requirements
+    labels = Input(name='the_labels', shape=[None,], dtype='int32')
+    input_length = Input(name='input_length', shape=[1], dtype='int32')
+    label_length = Input(name='label_length', shape=[1], dtype='int32')
+
+    # Keras doesn't currently support loss funcs with extra parameters
+    # so CTC loss is implemented in a lambda layer
+    loss_out = Lambda(ctc_lambda_func, output_shape=(1,), name='ctc')([o,
+                                                                       labels,
+                                                                       input_length,
+                                                                       label_length])
+    model = Model(inputs=[input_data, labels, input_length, label_length], outputs=[loss_out])
+
+    return model
 
 def ConvDilated(input_dim=39, conv_size=512, num_classes=29, input_std_noise=.0, residual=None, num_hiddens=256, num_layers=5,
            dropout=0.2 , input_dropout=False, weight_decay=1e-4, activation='tanh'):
