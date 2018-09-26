@@ -327,6 +327,7 @@ def DeepSpeech2(input_dim=39, conv_size=512, num_classes=29, input_std_noise=.0,
     K.set_learning_phase(1)
     input_data = Input(name='the_input', shape=(None, input_dim))
     o=input_data
+    o =BatchNormalization(axis=-1, name='BN_1')(o)
     o = Conv1D(512, 5, strides=1, activation=clipped_relu, name='Conv1D_1')(o)
     o= Conv1D(512, 5, strides=1, activation=clipped_relu, name='Conv1D_2')(o)
     o= Conv1D(512, 5, strides=2, activation=clipped_relu, name='Conv1D_3')(o)
