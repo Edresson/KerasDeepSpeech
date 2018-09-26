@@ -58,7 +58,7 @@ def main(args):
     # check any special data model requirments e.g. a spectrogram
     if(args.model_arch == 1):
         model_input_type = "mfcc"
-    elif(args.model_arch == 2 or args.model_arch == 5):
+    elif(args.model_arch == 5):
         print("Spectrogram required")
         # spectrogram = True
         model_input_type = "spectrogram"
@@ -105,7 +105,7 @@ def main(args):
             model = DeepSpeech2(input_dim=26, conv_size=512, num_classes=29, input_std_noise=.0, residual=None, num_hiddens=256, num_layers=5,dropout=0.2 , input_dropout=False, weight_decay=1e-4, activation='tanh')
 
         elif(args.model_arch==2):
-            model = DeepSpeech2_Simplified(input_dim=161, conv_size=512, num_classes=29, input_std_noise=.0, residual=None, num_hiddens=256, num_layers=5,dropout=0.2 , input_dropout=False, weight_decay=1e-4, activation='tanh')
+            model = DeepSpeech2_Simplified(input_dim=26, conv_size=512, num_classes=29, input_std_noise=.0, residual=None, num_hiddens=256, num_layers=5,dropout=0.2 , input_dropout=False, weight_decay=1e-4, activation='tanh')
 
             
         elif(args.model_arch==4):
